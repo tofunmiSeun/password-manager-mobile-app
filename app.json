@@ -1,0 +1,12 @@
+{
+  "name": "credVaultApp",
+  "displayName": "credVaultApp",
+  "expo": {
+    "name": "credVaultApp",
+    "slug": "credVaultApp",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
