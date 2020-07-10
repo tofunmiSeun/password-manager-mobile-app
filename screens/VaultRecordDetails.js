@@ -27,7 +27,7 @@ export default function VaultRecordDetails({route}) {
     return (
         <View style={{flex: 1}}>
             <View style={styles.avatarWrapper}>
-                <UserAvatar size={60} name={formatAvatarText(record.name)} />
+                <UserAvatar size={100} name={formatAvatarText(record.name)} />
             </View>
             <Text style={styles.recordName}>{`${record.name}`}</Text> 
            <View style={styles.extraDetails}>
@@ -43,7 +43,6 @@ export default function VaultRecordDetails({route}) {
                     {reveal.length === 0 && <Entypo name="eye" size={30} color="white" />}
                     {reveal.length > 0 && <Text style={styles.buttonText}>{reveal}</Text>}
                 </TouchableOpacity>
-                
            </View>
         </View>
     )
@@ -52,31 +51,33 @@ export default function VaultRecordDetails({route}) {
 const styles = StyleSheet.create({
     avatarWrapper: {
         marginTop: 16,
-        marginHorizontal: 'auto',
-        width: 60
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        width: 100
     },
     recordName: {
         fontSize: 16, 
-        marginHorizontal: 'auto', 
+        marginLeft: 'auto',
+        marginRight: 'auto',
         fontWeight: 'bold',
-        marginTop: 8
+        marginTop: 16
     },
     extraDetails: {
-        marginTop: 20,
+        marginTop: 40,
         padding: 12
     },
     extraDetailsRow: {
-        flex: 1,
         flexDirection: 'row',
-        marginBottom: 10
+        marginBottom: 16
     },
     extraDetailsText: {
-        marginVertical: 'auto',
+        marginTop: 'auto',
+        marginBottom: 'auto',
         marginLeft: 12,
         fontSize: 16
     },
     button: {
-        marginTop: 20,
+        marginTop: 40,
         backgroundColor: '#1f5ebd',
         alignItems: 'center',
         padding: 4,
@@ -86,6 +87,7 @@ const styles = StyleSheet.create({
     buttonText: {
         color: 'white', 
         fontWeight: 'bold',
-        marginVertical: 'auto'
+        marginTop: 'auto',
+        marginBottom: 'auto',
     }
 });
