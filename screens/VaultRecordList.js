@@ -9,7 +9,7 @@ const renderSeparator = () => {
     return <View style={{height: 1, backgroundColor: "#CED0CE"}}/>;
 };
 
-export default function CredentialsList({navigation}) {
+export default function VaultRecordList({navigation}) {
     const [records, setRecords] = useState([]);
     const [searchText, setSearchText] = useState('');
 

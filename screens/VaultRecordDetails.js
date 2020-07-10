@@ -4,7 +4,7 @@ import UserAvatar from 'react-native-user-avatar';
 import { Entypo } from '@expo/vector-icons';
 import {SERVER_URL, formatAvatarText} from '../Utils';
 
-export default function CredentialsList({route}) {
+export default function VaultRecordDetails({route}) {
     const {record} = route.params;
     const [reveal, setReveal] = useState('');
 
