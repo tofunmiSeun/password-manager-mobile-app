@@ -9,9 +9,19 @@ export default function VaultRecordDetails({route}) {
     const [reveal, setReveal] = useState('');
 
     const revealNow = () => {
-        fetch(SERVER_URL + `/reveal-password/${record.id}`)
-        .then(response => response.json())
-        .then(responseJson => setReveal(responseJson));
+        if (reveal === '') {
+            fetch(SERVER_URL + `/reveal-password/${record.id}`)
+            .then(response => response.json())
+            .then(responseJson => {
+                setReveal(responseJson)
+                setTimeout(() => {
+                    setReveal('')
+                }, 5000);
+            });
+        } else {
+            setReveal('')
+        }
+        
     }
 
     return (
@@ -30,9 +40,10 @@ export default function VaultRecordDetails({route}) {
                     <Text style={styles.extraDetailsText}>{`${record.url}`}</Text> 
                </View>
                <TouchableOpacity style={styles.button} onPress={revealNow}>
-                    <Entypo name="eye" size={30} color="white" />
+                    {reveal.length === 0 && <Entypo name="eye" size={30} color="white" />}
+                    {reveal.length > 0 && <Text style={styles.buttonText}>{reveal}</Text>}
                 </TouchableOpacity>
-                <Text>{reveal}</Text>
+                
            </View>
         </View>
     )
@@ -69,10 +80,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#1f5ebd',
         alignItems: 'center',
         padding: 4,
-        borderRadius: 4
+        borderRadius: 4,
+        minHeight: 42
     },
     buttonText: {
         color: 'white', 
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginVertical: 'auto'
     }
 });

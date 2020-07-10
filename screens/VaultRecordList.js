@@ -36,7 +36,6 @@ export default function VaultRecordList({navigation}) {
 
     return (
         <View>
-            
             <SectionList sections={records} renderItem={({item}) => 
                 <ListItem record={item} navigation={navigation} />}
                 ListHeaderComponent={(
