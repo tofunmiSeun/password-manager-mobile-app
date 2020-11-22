@@ -1,4 +1,4 @@
-const SERVER_URL = 'http://localhost/api/v1/vault-records';
+const SERVER_URL = 'https://tofunmi-og-cred-vault.herokuapp.com/api/v1/vault-records';
 
 const formatAvatarText = (name) => {
     const splitBySpace = name.split(" ").slice(0, 2)
