@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import UserAvatar from 'react-native-user-avatar';
-import {formatAvatarText} from '../Utils';
+import {formatAvatarText} from '../../Utils';
 
 export default function ListItem({record, navigation}) {
 

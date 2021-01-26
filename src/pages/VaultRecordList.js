@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {StyleSheet, View, TextInput, SectionList, TouchableOpacity, Text} from 'react-native';
 
-import ListItem from '../components/ListItem';
-import SectionedListHeader from '../components/SectionedListHeader';
+import ListItem from '../components/organisms/ListItem';
+import SectionedListHeader from '../components/molecules/SectionedListHeader';
 import {SERVER_URL} from '../Utils';
 
 const renderSeparator = () => {

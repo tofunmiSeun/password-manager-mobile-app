@@ -3,8 +3,8 @@ import 'react-native-gesture-handler';
 import {NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import VaultRecordList from './screens/VaultRecordList';
-import VaultRecordDetails from './screens/VaultRecordDetails';
+import VaultRecordList from './pages/VaultRecordList';
+import VaultRecordDetails from './pages/VaultRecordDetails';
 
 const Stack = createStackNavigator();
 
