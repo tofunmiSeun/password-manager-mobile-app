@@ -14,7 +14,7 @@ export default function DeviceRegistrationPage({ navigation }) {
     return (
         <View style={{ flex: 1 }}>
             <PasswordBox onPasswordChangedCallBack={setMasterPassword} />
-            <Button text='Login' isDisabled={false} onClicked={onRegisterDeviceButtonClicked} />
+            <Button text='Register' isDisabled={false} onClicked={onRegisterDeviceButtonClicked} />
         </View>
     )
 }
