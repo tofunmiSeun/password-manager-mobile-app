@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import { post } from '../services/ApiCallsService';
-import PlainKeyValuePairStorage from '../data/PlainKeyValuePairStorage';
-import SecureKeyValuePairStorage from '../data/SecureKeyValuePairStorage';
+import PlainKeyValuePairStorage from '../storage/PlainKeyValuePairStorage';
+import SecureKeyValuePairStorage from '../storage/SecureKeyValuePairStorage';
 
 const USER_TOKEN_KEY = 'LOGGED_IN_USER_TOKEN';
 const USER_NAME_KEY = 'LOGGED_IN_USER_NAME';

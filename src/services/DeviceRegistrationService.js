@@ -1,6 +1,6 @@
 import { Platform } from 'react-native';
-import PlainKeyValuePairStorage from '../data/PlainKeyValuePairStorage';
-import SecureKeyValuePairStorage from '../data/SecureKeyValuePairStorage';
+import PlainKeyValuePairStorage from '../storage/PlainKeyValuePairStorage';
+import SecureKeyValuePairStorage from '../storage/SecureKeyValuePairStorage';
 
 const DEVICE_DETAILS_KEY = 'REGISTERED_DEVICE_CREDENTIAALS';
 
