@@ -5,7 +5,7 @@ import TextBox from '../components/atoms/TextBox';
 import PasswordBox from '../components/atoms/PasswordBox';
 import Button from '../components/atoms/Button';
 
-export default function LoginPage({ route }) {
+export default function LoginPage({ navigation }) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 

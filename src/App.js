@@ -10,6 +10,7 @@ import VaultRecordList from './pages/VaultRecordList';
 import VaultRecordDetails from './pages/VaultRecordDetails';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import DeviceRegistrationPage from './pages/DeviceRegistrationPage';
 
 const Stack = createStackNavigator();
 
@@ -35,7 +36,7 @@ export default function App() {
     if (userIsLoggedIn && deviceIsRegistered) {
       setInitialRouteName(HOME);
     } else if (userIsLoggedIn) {
-      setInitialRouteName(HOME);
+      setInitialRouteName(REGISTER_DEVICE);
     } else {
       setInitialRouteName(LOGIN);
     }
@@ -49,6 +50,7 @@ export default function App() {
         <Stack.Navigator initialRouteName={appInitialRouteName}>
           <Stack.Screen name={SIGN_UP} component={SignUpPage} />
           <Stack.Screen name={LOGIN} component={LoginPage} />
+          <Stack.Screen name={REGISTER_DEVICE} component={DeviceRegistrationPage} />
           <Stack.Screen name={HOME} component={VaultRecordList} />
           <Stack.Screen name={DETAILS} component={VaultRecordDetails} />
         </Stack.Navigator>

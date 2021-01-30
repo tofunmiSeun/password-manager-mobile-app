@@ -5,7 +5,7 @@ import TextBox from '../components/atoms/TextBox';
 import PasswordBox from '../components/atoms/PasswordBox';
 import Button from '../components/atoms/Button';
 
-export default function SignUpPage({ route }) {
+export default function SignUpPage({ navigation }) {
 
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
