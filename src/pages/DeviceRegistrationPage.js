@@ -5,10 +5,9 @@ import PasswordBox from '../components/atoms/PasswordBox';
 import Button from '../components/atoms/Button';
 
 export default function DeviceRegistrationPage({ navigation }) {
-    const [masterPassword, setMasterPassword] = React.useState('password');
+    const [masterPassword, setMasterPassword] = React.useState('');
 
     const onRegisterDeviceButtonClicked = () => {
-        setMasterPassword('');
         DeviceRegistrationService.generateKeys(masterPassword);
     };
 
