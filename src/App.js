@@ -4,7 +4,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { clearUserToken, isLoggedIn } from './services/OnboardingService';
-import { isDeviceRegistered } from './services/DeviceRegistrationService';
+import DeviceRegistrationService from './services/DeviceRegistrationService';
 
 import VaultRecordList from './pages/VaultRecordList';
 import VaultRecordDetails from './pages/VaultRecordDetails';
@@ -31,7 +31,7 @@ export default function App() {
   const checkUserLoggedInStatus = async () => {
     //await clearUserToken();
     const userIsLoggedIn = await isLoggedIn();
-    const deviceIsRegistered = await isDeviceRegistered();
+    const deviceIsRegistered = await DeviceRegistrationService.isDeviceRegistered();
 
     if (userIsLoggedIn && deviceIsRegistered) {
       setInitialRouteName(HOME);
