@@ -10,4 +10,8 @@ export default class DeviceRegistrationService {
         return Platform.OS !== 'web' ? SecureKeyValuePairStorage.containsKey(DEVICE_DETAILS_KEY) :
             PlainKeyValuePairStorage.containsKey(DEVICE_DETAILS_KEY);
     };
+
+    static async generateKeys(masterPassword) {
+        
+    };
 };

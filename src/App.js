@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { clearUserToken, isLoggedIn } from './services/OnboardingService';
+import { isLoggedIn } from './services/OnboardingService';
 import DeviceRegistrationService from './services/DeviceRegistrationService';
 
 import VaultRecordList from './pages/VaultRecordList';
@@ -29,7 +29,6 @@ export default function App() {
   }, []);
 
   const checkUserLoggedInStatus = async () => {
-    //await clearUserToken();
     const userIsLoggedIn = await isLoggedIn();
     const deviceIsRegistered = await DeviceRegistrationService.isDeviceRegistered();
 
