@@ -8,7 +8,7 @@ export default function DeviceRegistrationPage({ navigation }) {
     const [masterPassword, setMasterPassword] = React.useState('');
 
     const onRegisterDeviceButtonClicked = () => {
-        DeviceRegistrationService.generateKeys(masterPassword);
+        DeviceRegistrationService.generateAndSaveKeys(masterPassword);
     };
 
     return (

@@ -7,6 +7,10 @@ export function post(url, requestBody, successCallback, errorCallback) {
         .then(response => {
             successCallback(response.data);
         }).catch(error => {
-            errorCallback(error.response.data);
+            if (error.response) {
+                errorCallback(error.response.data);
+            } else {
+                errorCallback(error.message);
+            }
         });
 }
