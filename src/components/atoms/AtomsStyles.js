@@ -20,5 +20,8 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         marginTop: 'auto',
         marginBottom: 'auto',
+    },
+    selectBox: {
+        marginBottom: 16
     }
 });

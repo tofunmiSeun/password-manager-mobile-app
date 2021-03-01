@@ -3,7 +3,9 @@ import axios from 'axios';
 const SERVER_URL = 'http://localhost:9001/api/v1';
 
 export function setAuthorizationToken(token) {
-    axios.defaults.headers.post['Authorization'] = `Basic ${token}`;
+    const authHeaderValue = `Basic ${token}`;
+    axios.defaults.headers.post['Authorization'] = authHeaderValue;
+    axios.defaults.headers.get['Authorization'] = authHeaderValue;
 }
 
 export function post(url, requestBody, successCallback, errorCallback) {

@@ -1,33 +1,46 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import DeviceRegistrationService from '../services/DeviceRegistrationService';
-import UserService from '../services/UserService';
+import DeviceService from '../services/DeviceService';
+import DeviceCredentialsService from '../services/DeviceCredentialsService';
+import TextBox from '../components/atoms/TextBox';
 import PasswordBox from '../components/atoms/PasswordBox';
 import Button from '../components/atoms/Button';
 import OnboardingTempate from '../components/templates/OnboardingTemplate';
 
 export default function DeviceRegistrationPage({ navigation }) {
+    const [deviceName, setDeviceName] = React.useState('');
     const [masterPassword, setMasterPassword] = React.useState('');
 
-    const logout = () => {
-        UserService.logout();
-        navigation.navigate('Login');
+    const recoverDevice = () => {
+        navigation.navigate('RecoverDevice');
     };
 
+    const DeviceForm = <View>
+        <TextBox initialTextValue={deviceName} onTextChangedCallBack={setDeviceName}
+            placeholder='Device name'
+            isTextInputValid={deviceName.length > 0}
+            invalidTextInputErrorMessage='Name not valid' />
+        <PasswordBox onPasswordChangedCallBack={setMasterPassword} placeholder='Master password' />
+    </View>
+
     const isSubmitButtonDisabled = () => {
-        return !Boolean(masterPassword.trim());
+        return !Boolean(deviceName.trim()) ||
+            !Boolean(masterPassword.trim());
     };
 
     const onRegisterDeviceButtonClicked = async () => {
-        const generatedKeyDetails = await DeviceRegistrationService.generateAndSaveKeys(masterPassword);
+        const generatedKeyDetails = await DeviceCredentialsService.generateAndSaveKeys(masterPassword);
         const requestBody = {
+            alias: deviceName,
             publicKey: generatedKeyDetails.publicKey,
             encryptedPrivateKey: generatedKeyDetails.encryptedPrivateKey,
             mukSalt: generatedKeyDetails.mukSalt
         };
-        DeviceRegistrationService.uploadDeviceCredentials(requestBody, async (deviceId) => {
+        DeviceService.uploadDeviceCredentials(requestBody, async (deviceId) => {
+            generatedKeyDetails.deviceName = deviceName;
             generatedKeyDetails.deviceId = deviceId;
-            await DeviceRegistrationService.saveDeviceRegistrationCredentials(generatedKeyDetails);
+            await DeviceService.saveDeviceRegistrationCredentials(generatedKeyDetails);
+            alert(generatedKeyDetails.secretKey);
             setMasterPassword('');
             navigation.navigate('Home');
         }, (errorMessage) => {
@@ -36,11 +49,10 @@ export default function DeviceRegistrationPage({ navigation }) {
     };
 
     return <OnboardingTempate title={'Register Device'}
-        form={<PasswordBox onPasswordChangedCallBack={setMasterPassword} placeholder='Master password' />}
-        alternateAction={{ title: 'Logout', action: logout }}
+        form={DeviceForm}
+        alternateAction={{ title: 'Recover device', action: recoverDevice }}
         submitButton={<Button text='Register'
             isDisabled={isSubmitButtonDisabled()}
             onClicked={onRegisterDeviceButtonClicked} />}
     />;
-
 }

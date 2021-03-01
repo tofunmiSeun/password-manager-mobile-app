@@ -4,12 +4,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import UserService from './services/UserService';
-import DeviceRegistrationService from './services/DeviceRegistrationService';
+import DeviceService from './services/DeviceService';
 
 import VaultRecordList from './pages/VaultRecordList';
 import VaultRecordDetails from './pages/VaultRecordDetails';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
+import DeviceRecoveryPage from './pages/DeviceRecoveryPage';
 import DeviceRegistrationPage from './pages/DeviceRegistrationPage';
 
 const Stack = createStackNavigator();
@@ -17,6 +18,7 @@ const Stack = createStackNavigator();
 export default function App() {
   const SIGN_UP = 'SignUp';
   const LOGIN = 'Login';
+  const RECOVER_DEVICE = 'RecoverDevice';
   const REGISTER_DEVICE = 'RegisterDevice';
   const HOME = 'Home';
   const DETAILS = 'Details';
@@ -30,12 +32,12 @@ export default function App() {
 
   const checkUserLoggedInStatus = async () => {
     const userIsLoggedIn = await UserService.isLoggedIn();
-    const deviceIsRegistered = await DeviceRegistrationService.isDeviceRegistered();
+    const deviceIsRegistered = await DeviceService.isDeviceRegistered();
 
     if (userIsLoggedIn && deviceIsRegistered) {
       setInitialRouteName(HOME);
     } else if (userIsLoggedIn) {
-      setInitialRouteName(REGISTER_DEVICE);
+      setInitialRouteName(RECOVER_DEVICE);
     } else {
       setInitialRouteName(LOGIN);
     }
@@ -49,6 +51,7 @@ export default function App() {
         <Stack.Navigator initialRouteName={appInitialRouteName} screenOptions={{ headerShown: false }}>
           <Stack.Screen name={SIGN_UP} component={SignUpPage} />
           <Stack.Screen name={LOGIN} component={LoginPage} />
+          <Stack.Screen name={RECOVER_DEVICE} component={DeviceRecoveryPage} />
           <Stack.Screen name={REGISTER_DEVICE} component={DeviceRegistrationPage} />
           <Stack.Screen name={HOME} component={VaultRecordList} />
           <Stack.Screen name={DETAILS} component={VaultRecordDetails} />

@@ -1,35 +1,10 @@
-import { Platform } from 'react-native';
 import uuid from 'react-native-uuid';
 import * as CryptoJS from 'crypto-js';
 import RSAKey from 'react-native-rsa';
 import * as Random from 'expo-random';
-import UserService from '../services/UserService';
-import SecureKeyValuePairStorage from '../storage/SecureKeyValuePairStorage';
-import PlainKeyValuePairStorage from '../storage/PlainKeyValuePairStorage';
-import { post } from '../services/ApiCallsService';
+import UserService from './UserService';
 
-
-const DEVICE_DETAILS_KEY = 'REGISTERED_DEVICE_CREDENTIALS';
-
-export default class DeviceRegistrationService {
-
-    static async isDeviceRegistered() {
-        return Platform.OS !== 'web' ? SecureKeyValuePairStorage.containsKey(DEVICE_DETAILS_KEY) :
-            PlainKeyValuePairStorage.containsKey(DEVICE_DETAILS_KEY);
-    };
-
-    static async saveDeviceRegistrationCredentials(credentials) {
-        var x = JSON.stringify(credentials);
-        Platform.OS !== 'web' ? SecureKeyValuePairStorage.save(DEVICE_DETAILS_KEY, x) :
-            PlainKeyValuePairStorage.save(DEVICE_DETAILS_KEY, x);
-    }
-
-    static async uploadDeviceCredentials(requestBody, successCallback, errorCallback) {
-        await UserService.setAuthToken();
-        post('/device', requestBody, (deviceId) => {
-            successCallback(deviceId);
-        }, errorCallback);
-    }
+export default class DeviceCredentialsService {
 
     static async generateAndSaveKeys(masterPassword) {
         var userDetails = await UserService.getUserDetails();
@@ -46,6 +21,7 @@ export default class DeviceRegistrationService {
 
         var secretKey = await this.generateSecretKey();
         var rsaKeyPair = this.generateRsaKeyPairs();
+        console.log(rsaKeyPair.privateKey);
 
         var mixture2Function = CryptoJS.algo.SHA256.create();
         mixture2Function.update(secretKey);
@@ -98,5 +74,31 @@ export default class DeviceRegistrationService {
             privateKey: rsa.getPrivateString(),
             publicKey: rsa.getPublicString()
         };
+    };
+
+    static async validateDeviceCredentials(device, masterPassword, secretKey) {
+        var userDetails = await UserService.getUserDetails();
+        var mukRandomSalt = device.mukSalt;
+
+        var passwordSaltHashFunction = CryptoJS.algo.SHA256.create();
+        passwordSaltHashFunction.update(mukRandomSalt);
+        passwordSaltHashFunction.update(userDetails.email);
+
+        var mixture1 = CryptoJS.PBKDF2(masterPassword.trim(), passwordSaltHashFunction.finalize(), {
+            keySize: 256 / 32,
+            iterations: 100000
+        }).toString().toUpperCase();
+
+        var mixture2Function = CryptoJS.algo.SHA256.create();
+        mixture2Function.update(secretKey);
+        mixture2Function.update(userDetails.userId);
+        var mixture2 = mixture2Function.finalize().toString().toUpperCase();
+
+        var muk = this.XOR(mixture1, mixture2, 64);
+        const decrpytedPrvKey = CryptoJS.AES.decrypt(device.encryptedPrivateKey, muk).toString(CryptoJS.enc.Utf8);
+
+        var rsa = new RSAKey();
+        rsa.setPrivateString(decrpytedPrvKey);
+        return rsa.getPublicString() === device.publicKey;
     };
 };
