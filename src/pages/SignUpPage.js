@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { signUp } from '../services/OnboardingService';
+import UserService from '../services/UserService';
 import TextBox from '../components/atoms/TextBox';
 import PasswordBox from '../components/atoms/PasswordBox';
 import Button from '../components/atoms/Button';
+import OnboardingTempate from '../components/templates/OnboardingTemplate';
 
 export default function SignUpPage({ navigation }) {
 
@@ -11,26 +12,42 @@ export default function SignUpPage({ navigation }) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
+    const SignUpForm = <View>
+        <TextBox initialTextValue={name} onTextChangedCallBack={setName}
+            placeholder='Name' isTextInputValid={name.trim().length > 0}
+            invalidTextInputErrorMessage='Name is required' />
+        <TextBox initialTextValue={email} onTextChangedCallBack={setEmail}
+            placeholder='Email' isTextInputValid={email.trim().length > 0}
+            invalidTextInputErrorMessage='Email address not valid' />
+        <PasswordBox onPasswordChangedCallBack={setPassword} />
+    </View>;
+
+    const goToLogin = () => {
+        navigation.navigate('Login');
+    }
+
+    const isSignUpButtonDisabled = () => {
+        return !Boolean(name.trim()) ||
+            !Boolean(email.trim()) ||
+            !Boolean(password.trim());
+    };
+
     const onSignUpButtonClicked = () => {
-        signUp({ name, email, password }, () => {
+        UserService.signUp({ name, email, password }, () => {
             setName('');
             setEmail('');
             setPassword('');
+            navigation.navigate('SignUp');
         }, (errorMessage) => {
             console.log(errorMessage);
         });
     };
 
-    return (
-        <View style={{ flex: 1 }}>
-            <TextBox initialTextValue={name} onTextChangedCallBack={setName}
-                placeholder='Name' isTextInputValid={name.trim().length > 0}
-                invalidTextInputErrorMessage='Name is required' />
-            <TextBox initialTextValue={email} onTextChangedCallBack={setEmail}
-                placeholder='Email' isTextInputValid={email.trim().length > 0}
-                invalidTextInputErrorMessage='Email address not valid' />
-            <PasswordBox onPasswordChangedCallBack={setPassword} />
-            <Button text='Sign Up' isDisabled={false} onClicked={onSignUpButtonClicked} />
-        </View>
-    )
+    return <OnboardingTempate title='Sign Up'
+        form={SignUpForm}
+        alternateAction={{ title: 'Login', action: goToLogin }}
+        submitButton={<Button text='Sign Up'
+            isDisabled={isSignUpButtonDisabled()}
+            onClicked={onSignUpButtonClicked} />}
+    />;
 }

@@ -3,9 +3,10 @@ import uuid from 'react-native-uuid';
 import * as CryptoJS from 'crypto-js';
 import RSAKey from 'react-native-rsa';
 import * as Random from 'expo-random';
-import { getUserDetails } from '../services/OnboardingService';
+import UserService from '../services/UserService';
 import SecureKeyValuePairStorage from '../storage/SecureKeyValuePairStorage';
 import PlainKeyValuePairStorage from '../storage/PlainKeyValuePairStorage';
+import { post } from '../services/ApiCallsService';
 
 
 const DEVICE_DETAILS_KEY = 'REGISTERED_DEVICE_CREDENTIALS';
@@ -23,8 +24,16 @@ export default class DeviceRegistrationService {
             PlainKeyValuePairStorage.save(DEVICE_DETAILS_KEY, x);
     }
 
+    static async uploadDeviceCredentials(requestBody, successCallback, errorCallback) {
+        await UserService.setAuthToken();
+        post('/device', requestBody, (tokenResponse) => {
+            saveUserDetails(tokenResponse);
+            successCallback();
+        }, errorCallback);
+    }
+
     static async generateAndSaveKeys(masterPassword) {
-        var userDetails = await getUserDetails();
+        var userDetails = await UserService.getUserDetails();
         var mukRandomSalt = uuid.v4();
 
         var passwordSaltHashFunction = CryptoJS.algo.SHA256.create();
@@ -47,14 +56,12 @@ export default class DeviceRegistrationService {
         var muk = this.XOR(mixture1, mixture2, 64);
         var encryptedPrivateKey = CryptoJS.AES.encrypt(rsaKeyPair.privateKey, muk).toString();
 
-        var toSaveLocally = {
+        return {
             secretKey,
             mukSalt: mukRandomSalt,
             publicKey: rsaKeyPair.publicKey,
             encryptedPrivateKey
         };
-        this.saveDeviceRegistrationCredentials(toSaveLocally);
-        return toSaveLocally;
     };
 
     static async generateSecretKey() {

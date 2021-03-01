@@ -3,7 +3,7 @@ import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { isLoggedIn } from './services/OnboardingService';
+import UserService from './services/UserService';
 import DeviceRegistrationService from './services/DeviceRegistrationService';
 
 import VaultRecordList from './pages/VaultRecordList';
@@ -29,7 +29,7 @@ export default function App() {
   }, []);
 
   const checkUserLoggedInStatus = async () => {
-    const userIsLoggedIn = await isLoggedIn();
+    const userIsLoggedIn = await UserService.isLoggedIn();
     const deviceIsRegistered = await DeviceRegistrationService.isDeviceRegistered();
 
     if (userIsLoggedIn && deviceIsRegistered) {
@@ -46,7 +46,7 @@ export default function App() {
   return (
     <>
       {appIsReady && <NavigationContainer>
-        <Stack.Navigator initialRouteName={appInitialRouteName}>
+        <Stack.Navigator initialRouteName={appInitialRouteName} screenOptions={{ headerShown: false }}>
           <Stack.Screen name={SIGN_UP} component={SignUpPage} />
           <Stack.Screen name={LOGIN} component={LoginPage} />
           <Stack.Screen name={REGISTER_DEVICE} component={DeviceRegistrationPage} />

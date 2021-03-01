@@ -1,30 +1,48 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import { login } from '../services/OnboardingService';
+import UserService from '../services/UserService';
 import TextBox from '../components/atoms/TextBox';
 import PasswordBox from '../components/atoms/PasswordBox';
 import Button from '../components/atoms/Button';
+import OnboardingTempate from '../components/templates/OnboardingTemplate';
 
 export default function LoginPage({ navigation }) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
 
+    const LoginForm = <View>
+        <TextBox initialTextValue={email} onTextChangedCallBack={setEmail}
+            placeholder='Email'
+            isTextInputValid={email.length > 0}
+            invalidTextInputErrorMessage='Email address not valid' />
+        <PasswordBox onPasswordChangedCallBack={setPassword} />
+    </View>;
+
+    const goToSignUp = () => {
+        navigation.navigate('SignUp');
+    }
+
+    const isLoginButtonDisabled = () => {
+        return !Boolean(email.trim()) ||
+            !Boolean(password.trim());
+    };
+
     const onLoginButtonClicked = () => {
-        login({ email, password }, () => {
+        UserService.login({ email, password }, () => {
             setEmail('');
             setPassword('');
+            navigation.navigate('RegisterDevice');
         }, (errorMessage) => {
             console.log(errorMessage);
         });
     };
 
-    return (
-        <View style={{ flex: 1 }}>
-            <TextBox initialTextValue={email} onTextChangedCallBack={setEmail}
-                placeholder='Email' isTextInputValid={email.length > 0}
-                invalidTextInputErrorMessage='Email address not valid' />
-            <PasswordBox onPasswordChangedCallBack={setPassword} />
-            <Button text='Login' isDisabled={false} onClicked={onLoginButtonClicked} />
-        </View>
-    )
+    return <OnboardingTempate title={'Login'}
+        form={LoginForm}
+        alternateAction={{ title: 'Sign up', action: goToSignUp }}
+        submitButton={<Button text='Login'
+            isDisabled={isLoginButtonDisabled()}
+            onClicked={onLoginButtonClicked} />}
+    />;
+
 }

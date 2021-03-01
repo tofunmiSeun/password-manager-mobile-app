@@ -4,7 +4,8 @@ export default StyleSheet.create({
     textInput: {
         height: 40,
         borderColor: 'gray',
-        borderWidth: 1
+        borderWidth: 1,
+        marginBottom: 16
     },
     button: {
         marginTop: 40,
