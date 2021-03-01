@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import UserService from './services/UserService';
 import DeviceService from './services/DeviceService';
 
-import VaultRecordList from './pages/VaultRecordList';
+import VaultPage from './pages/VaultPage';
 import VaultRecordDetails from './pages/VaultRecordDetails';
 import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
@@ -53,7 +53,7 @@ export default function App() {
           <Stack.Screen name={LOGIN} component={LoginPage} />
           <Stack.Screen name={RECOVER_DEVICE} component={DeviceRecoveryPage} />
           <Stack.Screen name={REGISTER_DEVICE} component={DeviceRegistrationPage} />
-          <Stack.Screen name={HOME} component={VaultRecordList} />
+          <Stack.Screen name={HOME} component={VaultPage} />
           <Stack.Screen name={DETAILS} component={VaultRecordDetails} />
         </Stack.Navigator>
       </NavigationContainer>}
