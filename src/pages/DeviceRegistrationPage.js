@@ -25,7 +25,8 @@ export default function DeviceRegistrationPage({ navigation }) {
             encryptedPrivateKey: generatedKeyDetails.encryptedPrivateKey,
             mukSalt: generatedKeyDetails.mukSalt
         };
-        DeviceRegistrationService.uploadDeviceCredentials(requestBody, async () => {
+        DeviceRegistrationService.uploadDeviceCredentials(requestBody, async (deviceId) => {
+            generatedKeyDetails.deviceId = deviceId;
             await DeviceRegistrationService.saveDeviceRegistrationCredentials(generatedKeyDetails);
             setMasterPassword('');
             navigation.navigate('Home');

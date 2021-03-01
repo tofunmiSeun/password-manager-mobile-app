@@ -26,9 +26,8 @@ export default class DeviceRegistrationService {
 
     static async uploadDeviceCredentials(requestBody, successCallback, errorCallback) {
         await UserService.setAuthToken();
-        post('/device', requestBody, (tokenResponse) => {
-            saveUserDetails(tokenResponse);
-            successCallback();
+        post('/device', requestBody, (deviceId) => {
+            successCallback(deviceId);
         }, errorCallback);
     }
 
