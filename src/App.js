@@ -1,5 +1,6 @@
 import * as React from 'react';
 import 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -46,17 +47,17 @@ export default function App() {
   }
 
   return (
-    <>
+    <SafeAreaView style={{ flex: 1 }}>
       {appIsReady && <NavigationContainer>
         <Stack.Navigator initialRouteName={appInitialRouteName} screenOptions={{ headerShown: false }}>
           <Stack.Screen name={SIGN_UP} component={SignUpPage} />
           <Stack.Screen name={LOGIN} component={LoginPage} />
           <Stack.Screen name={RECOVER_DEVICE} component={DeviceRecoveryPage} />
           <Stack.Screen name={REGISTER_DEVICE} component={DeviceRegistrationPage} />
-          <Stack.Screen name={HOME} component={VaultPage} />
+          <Stack.Screen name={HOME} component={VaultPage} options={{ headerShown: true, title: 'Vaults' }} />
           <Stack.Screen name={DETAILS} component={VaultRecordDetails} />
         </Stack.Navigator>
       </NavigationContainer>}
-    </>
+    </SafeAreaView>
   );
 }

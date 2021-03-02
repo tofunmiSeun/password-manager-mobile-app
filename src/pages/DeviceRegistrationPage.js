@@ -4,7 +4,7 @@ import DeviceService from '../services/DeviceService';
 import DeviceCredentialsService from '../services/DeviceCredentialsService';
 import TextBox from '../components/atoms/TextBox';
 import PasswordBox from '../components/atoms/PasswordBox';
-import Button from '../components/atoms/Button';
+import AppButton from '../components/atoms/AppButton';
 import OnboardingTempate from '../components/templates/OnboardingTemplate';
 
 export default function DeviceRegistrationPage({ navigation }) {
@@ -51,7 +51,7 @@ export default function DeviceRegistrationPage({ navigation }) {
     return <OnboardingTempate title={'Register Device'}
         form={DeviceForm}
         alternateAction={{ title: 'Recover device', action: recoverDevice }}
-        submitButton={<Button text='Register'
+        submitButton={<AppButton text='Register'
             isDisabled={isSubmitButtonDisabled()}
             onClicked={onRegisterDeviceButtonClicked} />}
     />;

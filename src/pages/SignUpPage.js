@@ -3,7 +3,7 @@ import { View } from 'react-native';
 import UserService from '../services/UserService';
 import TextBox from '../components/atoms/TextBox';
 import PasswordBox from '../components/atoms/PasswordBox';
-import Button from '../components/atoms/Button';
+import AppButton from '../components/atoms/AppButton';
 import OnboardingTempate from '../components/templates/OnboardingTemplate';
 
 export default function SignUpPage({ navigation }) {
@@ -46,7 +46,7 @@ export default function SignUpPage({ navigation }) {
     return <OnboardingTempate title='Sign Up'
         form={SignUpForm}
         alternateAction={{ title: 'Login', action: goToLogin }}
-        submitButton={<Button text='Sign Up'
+        submitButton={<AppButton text='Sign Up'
             isDisabled={isSignUpButtonDisabled()}
             onClicked={onSignUpButtonClicked} />}
     />;
