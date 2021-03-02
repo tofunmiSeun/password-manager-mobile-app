@@ -45,7 +45,7 @@ export default function SignUpPage({ navigation }) {
 
     return <OnboardingTempate title='Sign Up'
         form={SignUpForm}
-        alternateAction={{ title: 'Login', action: goToLogin }}
+        alternateActions={[{ title: 'Login', action: goToLogin }]}
         submitButton={<AppButton text='Sign Up'
             isDisabled={isSignUpButtonDisabled()}
             onClicked={onSignUpButtonClicked} />}

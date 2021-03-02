@@ -50,7 +50,7 @@ export default function DeviceRegistrationPage({ navigation }) {
 
     return <OnboardingTempate title={'Register Device'}
         form={DeviceForm}
-        alternateAction={{ title: 'Recover device', action: recoverDevice }}
+        alternateActions={[{ title: 'Recover device', action: recoverDevice }]}
         submitButton={<AppButton text='Register'
             isDisabled={isSubmitButtonDisabled()}
             onClicked={onRegisterDeviceButtonClicked} />}

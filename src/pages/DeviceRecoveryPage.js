@@ -39,6 +39,10 @@ export default function DeviceRecoveryPage({ navigation }) {
         navigation.navigate('Login');
     };
 
+    const registerNewDevice = () => {
+        navigation.navigate('RegisterDevice');
+    };
+
     const DeviceForm = <View>
         {devices.length > 0 && <SelectBox initialSelection={devices[0].id}
             options={devices} viewModelFormatter={deviceObjectSelectBoxFormatter}
@@ -82,7 +86,7 @@ export default function DeviceRecoveryPage({ navigation }) {
 
     return <OnboardingTempate title={'Recover Device'}
         form={DeviceForm}
-        alternateAction={{ title: 'Logout', action: logout }}
+        alternateActions={[{ title: 'New device', action: registerNewDevice }, { title: 'Logout', action: logout }]}
         submitButton={<AppButton text='Register'
             isDisabled={isSubmitButtonDisabled()}
             onClicked={onRecoverDeviceButtonClicked} />}

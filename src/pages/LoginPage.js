@@ -31,7 +31,7 @@ export default function LoginPage({ navigation }) {
         UserService.login({ email, password }, () => {
             setEmail('');
             setPassword('');
-            navigation.navigate('RegisterDevice');
+            navigation.navigate('RecoverDevice');
         }, (errorMessage) => {
             console.log(errorMessage);
         });
@@ -39,7 +39,7 @@ export default function LoginPage({ navigation }) {
 
     return <OnboardingTempate title={'Login'}
         form={LoginForm}
-        alternateAction={{ title: 'Sign up', action: goToSignUp }}
+        alternateActions={[{ title: 'Sign up', action: goToSignUp }]}
         submitButton={<AppButton text='Login'
             isDisabled={isLoginButtonDisabled()}
             onClicked={onLoginButtonClicked} />}
