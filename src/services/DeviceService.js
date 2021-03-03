@@ -25,6 +25,11 @@ export default class DeviceService {
         return JSON.parse(deviceDetails);
     }
 
+    static async getDeviceId() {
+        var deviceDetails = await this.getDeviceDetails();
+        return deviceDetails.deviceId;
+    }
+
     static async getAllDevices(successCallback, errorCallback) {
         await UserService.setAuthToken();
         get('/device', (devices) => {

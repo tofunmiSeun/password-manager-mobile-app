@@ -4,6 +4,7 @@ import RSAKey from 'react-native-rsa';
 import { post, get } from './ApiCallsService';
 import UserService from './UserService';
 import DeviceCredentialsService from './DeviceCredentialsService';
+import DeviceService from './DeviceService';
 
 async function generateKey(length) {
     var key = ""
@@ -43,9 +44,15 @@ export default class VaultService {
         return rsa.decrypt(cipherVaultKey);
     }
 
-    static getVaults(successCallback, errorCallback) {
+    static getVaults(deviceId, successCallback, errorCallback) {
         UserService.setAuthToken().then(() => {
-            get('/vault', successCallback, errorCallback);
+            get(`/vault/for-device/${deviceId}`, successCallback, errorCallback);
+        });
+    }
+
+    static getVaultRecords(vaultId, successCallback, errorCallback) {
+        UserService.setAuthToken().then(() => {
+            get(`/vault-record/for-vault/${vaultId}`, successCallback, errorCallback);
         });
     }
 

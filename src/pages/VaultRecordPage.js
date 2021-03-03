@@ -3,22 +3,21 @@ import { TouchableOpacity } from 'react-native';
 import { Text } from 'react-native';
 import AppListView from '../components/organisms/AppListView';
 import VaultService from '../services/VaultService';
-import DeviceService from '../services/DeviceService';
 
-export default function VaultPage({ navigation }) {
-    const [vaults, setVaults] = React.useState([]);
+export default function VaultRecordPage({ route }) {
+    const { vaultId, vaultName } = route?.params;
+    const [vaultRecords, setVaultRecords] = React.useState([]);
     const [loadingData, setLoadingData] = React.useState(false);
     const [searchKey, setSearchKey] = React.useState('');
 
     React.useEffect(() => {
-        getVaults();
+        getVaultRecords();
     }, []);
 
-    const getVaults = async () => {
-        const deviceId = await DeviceService.getDeviceId();
+    const getVaultRecords = () => {
         setLoadingData(true);
-        VaultService.getVaults(deviceId, (response) => {
-            setVaults(response);
+        VaultService.getVaultRecords(vaultId, (response) => {
+            setVaultRecords(response);
             setLoadingData(false);
         }, (errorMessage) => {
             setLoadingData(false);
@@ -26,20 +25,14 @@ export default function VaultPage({ navigation }) {
     }
 
     const ListItem = ({ item }) => (
-        <TouchableOpacity style={{ padding: 16 }} onPress={() => viewRecordsInVault(item)}>
+        <TouchableOpacity style={{ padding: 16 }}>
             <Text style={{ fontSize: 16 }}>{item.name}</Text>
         </TouchableOpacity>
     );
 
-    const viewRecordsInVault = (vault) => {
-        navigation.navigate('Home', {
-            screen: 'VaultRecords', params: { vaultId: vault.id, vaultName: vault.name },
-        });
-    }
-
     return (
-        <AppListView loadingData={loadingData} data={vaults} listItem={ListItem}
-            onListViewRefreshed={getVaults}
+        <AppListView loadingData={loadingData} data={vaultRecords} listItem={ListItem}
+            onListViewRefreshed={getVaultRecords}
             keyExtractorFunction={item => item.id}
             searchText={searchKey}
             onSearchTextChanged={setSearchKey} />

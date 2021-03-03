@@ -19,7 +19,9 @@ export default function AddVaultPage({ navigation }) {
         const encryptedVaultKey = await VaultService.generateAndEncryptVaultKey(masterPassword, deviceDetails);
 
         VaultService.createVault({ name: vaultName, deviceId, encryptedVaultKey }, (vaultId) => {
-            console.log(vaultId);
+            navigation.navigate('Home', {
+                screen: 'VaultRecords', params: { vaultId, vaultName },
+            });
             setSubmitting(false);
         }, (errorMessage) => {
             setSubmitting(false);
