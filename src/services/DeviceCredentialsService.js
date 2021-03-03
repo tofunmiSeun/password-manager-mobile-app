@@ -26,7 +26,7 @@ function XOR(first, second, length) {
 
 function generateRsaKeyPairs() {
     var rsa = new RSAKey();
-    rsa.generate(256, '10001');
+    rsa.generate(1024, '10001');
     return {
         privateKey: rsa.getPrivateString(),
         publicKey: rsa.getPublicString()

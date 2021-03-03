@@ -25,15 +25,15 @@ async function decryptAndValidatePrivateKey(masterPassword, device) {
 }
 
 export default class VaultService {
-    static async generateVaultKey() {
-        return await generateKey(32);
+    static async generateAndEncryptVaultKey(masterPassword, device) {
+        return this.encryptVaultKey(masterPassword, device, await generateKey(32));
     }
 
     static async encryptVaultKey(masterPassword, device, plainVaultKey) {
         await decryptAndValidatePrivateKey(masterPassword, device);
         const rsa = new RSAKey();
         rsa.setPublicString(device.publicKey);
-        return rsa.encrypt(plainVaultKey);
+        return rsa.encrypt(plainVaultKey).toUpperCase();
     }
 
     static async decryptVaultKey(masterPassword, device, cipherVaultKey) {

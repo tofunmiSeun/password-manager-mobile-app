@@ -16,17 +16,15 @@ export default function AddVaultPage({ navigation }) {
         const deviceDetails = await DeviceService.getDeviceDetails();
         const deviceId = deviceDetails.deviceId;
 
-        const generatedVaultKey = await VaultService.generateVaultKey();
-        const encryptedVaultKey = await VaultService.encryptVaultKey(masterPassword, deviceDetails, generatedVaultKey);
-        console.log(encryptedVaultKey);
+        const encryptedVaultKey = await VaultService.generateAndEncryptVaultKey(masterPassword, deviceDetails);
 
-        /*  VaultService.createVault({ name: vaultName, deviceId }, (vaultId) => {
-             console.log(vaultId);
-             setSubmitting(false);
-         }, (errorMessage) => {
-             setSubmitting(false);
-             console.log(errorMessage);
-         }) */
+        VaultService.createVault({ name: vaultName, deviceId, encryptedVaultKey }, (vaultId) => {
+            console.log(vaultId);
+            setSubmitting(false);
+        }, (errorMessage) => {
+            setSubmitting(false);
+            console.log(errorMessage);
+        })
     };
 
     return (
