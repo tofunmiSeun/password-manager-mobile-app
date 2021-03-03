@@ -7,7 +7,7 @@ import DeviceService from '../services/DeviceService';
 import MasterPasswordContext from '../context/MasterPasswordContext';
 
 export default function VaultRecordPage({ route }) {
-    const { vaultId, vaultName } = route?.params;
+    const { vaultId } = route?.params;
     const masterPassword = React.useContext(MasterPasswordContext);
 
     const [vaultRecords, setVaultRecords] = React.useState([]);
