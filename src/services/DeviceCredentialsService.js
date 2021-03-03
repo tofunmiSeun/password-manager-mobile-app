@@ -24,6 +24,24 @@ function XOR(first, second, length) {
     return result;
 }
 
+function getMUK(masterPassword, secretKey, mukSalt, userDetails) {
+    var passwordSaltHashFunction = CryptoES.algo.SHA256.create();
+    passwordSaltHashFunction.update(mukSalt);
+    passwordSaltHashFunction.update(userDetails.email);
+
+    var mixture1 = CryptoES.PBKDF2(masterPassword.trim(), passwordSaltHashFunction.finalize(), {
+        keySize: 256 / 32,
+        iterations: 100000
+    }).toString().toUpperCase();
+
+    var mixture2Function = CryptoES.algo.SHA256.create();
+    mixture2Function.update(secretKey);
+    mixture2Function.update(userDetails.userId);
+    var mixture2 = mixture2Function.finalize().toString().toUpperCase();
+
+    return XOR(mixture1, mixture2, 64);
+};
+
 function generateRsaKeyPairs() {
     var rsa = new RSAKey();
     rsa.generate(256, '10001');
@@ -38,25 +56,10 @@ export default class DeviceCredentialsService {
     static async generateAndSaveKeys(masterPassword) {
         var userDetails = await UserService.getUserDetails();
         var mukRandomSalt = uuid.v4();
-
-        var passwordSaltHashFunction = CryptoES.algo.SHA256.create();
-        passwordSaltHashFunction.update(mukRandomSalt);
-        passwordSaltHashFunction.update(userDetails.email);
-
-        var mixture1 = CryptoES.PBKDF2(masterPassword.trim(), passwordSaltHashFunction.finalize(), {
-            keySize: 256 / 32,
-            iterations: 100000
-        }).toString().toUpperCase();
-
         var secretKey = await generateSecretKey();
+        var muk = getMUK(masterPassword, secretKey, mukRandomSalt, userDetails);
+
         var rsaKeyPair = generateRsaKeyPairs();
-
-        var mixture2Function = CryptoES.algo.SHA256.create();
-        mixture2Function.update(secretKey);
-        mixture2Function.update(userDetails.userId);
-        var mixture2 = mixture2Function.finalize().toString().toUpperCase();
-
-        var muk = XOR(mixture1, mixture2, 64);
         var encryptedPrivateKey = CryptoES.AES.encrypt(rsaKeyPair.privateKey, muk).toString();
 
         return {
@@ -67,33 +70,10 @@ export default class DeviceCredentialsService {
         };
     };
 
-    static async generateKey(length) {
-        var key = ""
-        for (var x of await Random.getRandomBytesAsync(length)) {
-            key += String.fromCharCode(x);
-        }
-        return CryptoES.enc.Utf8.parse(key).toString().toUpperCase();
-    };
-
     static async validateDeviceCredentials(device, masterPassword, secretKey) {
         var userDetails = await UserService.getUserDetails();
-        var mukRandomSalt = device.mukSalt;
+        var muk = getMUK(masterPassword, secretKey, device.mukSalt, userDetails);
 
-        var passwordSaltHashFunction = CryptoES.algo.SHA256.create();
-        passwordSaltHashFunction.update(mukRandomSalt);
-        passwordSaltHashFunction.update(userDetails.email);
-
-        var mixture1 = CryptoES.PBKDF2(masterPassword.trim(), passwordSaltHashFunction.finalize(), {
-            keySize: 256 / 32,
-            iterations: 100000
-        }).toString().toUpperCase();
-
-        var mixture2Function = CryptoES.algo.SHA256.create();
-        mixture2Function.update(secretKey);
-        mixture2Function.update(userDetails.userId);
-        var mixture2 = mixture2Function.finalize().toString().toUpperCase();
-
-        var muk = XOR(mixture1, mixture2, 64);
         const decrpytedPrvKey = CryptoES.AES.decrypt(device.encryptedPrivateKey, muk).toString(CryptoES.enc.Utf8);
 
         var rsa = new RSAKey();

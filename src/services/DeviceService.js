@@ -19,6 +19,12 @@ export default class DeviceService {
             PlainKeyValuePairStorage.save(DEVICE_DETAILS_KEY, x);
     }
 
+    static async getDeviceDetails() {
+        var deviceDetails = await (Platform.OS !== 'web' ? SecureKeyValuePairStorage.get(DEVICE_DETAILS_KEY) :
+            PlainKeyValuePairStorage.get(DEVICE_DETAILS_KEY));
+        return JSON.parse(deviceDetails);
+    }
+
     static async getAllDevices(successCallback, errorCallback) {
         await UserService.setAuthToken();
         get('/device', (devices) => {

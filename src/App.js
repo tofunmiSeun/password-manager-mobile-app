@@ -13,6 +13,8 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import DeviceRecoveryPage from './pages/DeviceRecoveryPage';
 import DeviceRegistrationPage from './pages/DeviceRegistrationPage';
+import AddVaultButton from './components/molecules/AddVaultButton';
+import AddVaultPage from './pages/AddVaultPage';
 
 const Stack = createStackNavigator();
 
@@ -54,7 +56,14 @@ export default function App() {
           <Stack.Screen name={LOGIN} component={LoginPage} />
           <Stack.Screen name={RECOVER_DEVICE} component={DeviceRecoveryPage} />
           <Stack.Screen name={REGISTER_DEVICE} component={DeviceRegistrationPage} />
-          <Stack.Screen name={HOME} component={VaultPage} options={{ headerShown: true, title: 'Vaults' }} />
+          <Stack.Screen name={HOME} component={VaultPage}
+            options={{
+              headerShown: true, title: 'Vaults',
+              headerRight: () => <AddVaultButton />
+            }} />
+          <Stack.Screen name={'NewVault'} component={AddVaultPage} options={{
+            headerShown: true, title: 'Add Vault',
+          }} />
           <Stack.Screen name={DETAILS} component={VaultRecordDetails} />
         </Stack.Navigator>
       </NavigationContainer>}

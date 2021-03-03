@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Text, TouchableOpacity, View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import ConfiguredKeyboardAvoidingView from './ConfiguredKeyboardAvoidingView';
 
 export default function OnboardingTempate({ title, form, submitButton, alternateActions }) {
-    return (<KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.container}>
+    return <ConfiguredKeyboardAvoidingView childView={<View style={styles.container}>
         <Text style={{ alignSelf: 'center', fontSize: 18 }}>CredVault</Text>
         <Text style={styles.pageTitle}>{title}</Text>
         {form}
@@ -17,12 +16,11 @@ export default function OnboardingTempate({ title, form, submitButton, alternate
             })}
         </View>}
         <View style={styles.actionButton}>{submitButton}</View>
-    </KeyboardAvoidingView>);
+    </View>} />;
 }
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         padding: 16,
         backgroundColor: '#fff'
     },
