@@ -1,7 +1,8 @@
 import * as React from 'react';
-import { StyleSheet, FlatList, ActivityIndicator, View, Text } from 'react-native';
+import { StyleSheet, FlatList, View, Text } from 'react-native';
 import { SearchBar } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
+import ListItemSeparator from '../atoms/ListItemSeparator';
 
 export default function AppListView({
     isLoadingData = false,
@@ -24,8 +25,8 @@ export default function AppListView({
 
     return (
         <FlatList data={data}
-            //ListHeaderComponent={<ActivityIndicator />}
             ListEmptyComponent={NoDataView}
+            ListItemSeparator={ListItemSeparator}
             renderItem={listItem}
             keyExtractor={keyExtractorFunction}
             refreshing={isLoadingData}
