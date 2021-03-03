@@ -4,7 +4,6 @@ import RSAKey from 'react-native-rsa';
 import { post, get } from './ApiCallsService';
 import UserService from './UserService';
 import DeviceCredentialsService from './DeviceCredentialsService';
-import DeviceService from './DeviceService';
 
 async function generateKey(length) {
     var key = ""
@@ -23,6 +22,14 @@ async function decryptAndValidatePrivateKey(masterPassword, device) {
         throw 'Could not successfully access user\'s keys';
     }
     return decryptedPrivateKey;
+}
+
+function AESEncrypt(key, plain) {
+    return CryptoES.AES.encrypt(plain, key).toString()
+}
+
+function AESDecrypt(key, cipher) {
+    return CryptoES.AES.decrypt(cipher, key).toString(CryptoES.enc.Utf8)
 }
 
 export default class VaultService {
@@ -44,21 +51,51 @@ export default class VaultService {
         return rsa.decrypt(cipherVaultKey);
     }
 
-    static getVaults(deviceId, successCallback, errorCallback) {
-        UserService.setAuthToken().then(() => {
-            get(`/vault/for-device/${deviceId}`, successCallback, errorCallback);
+    static encryptVaultRecord(vaultKey, plainRecord) {
+        return Object.assign(plainRecord, {
+            name: AESEncrypt(vaultKey, plainRecord.name),
+            url: AESEncrypt(vaultKey, plainRecord.url),
+            username: AESEncrypt(vaultKey, plainRecord.username),
+            password: AESEncrypt(vaultKey, plainRecord.password),
         });
     }
 
-    static getVaultRecords(vaultId, successCallback, errorCallback) {
-        UserService.setAuthToken().then(() => {
-            get(`/vault-record/for-vault/${vaultId}`, successCallback, errorCallback);
+    static decryptVaultRecord(vaultKey, encryptedRecord) {
+        return Object.assign(encryptedRecord, {
+            name: AESDecrypt(vaultKey, encryptedRecord.name),
+            url: AESDecrypt(vaultKey, encryptedRecord.url),
+            username: AESDecrypt(vaultKey, encryptedRecord.username),
+            password: AESDecrypt(vaultKey, encryptedRecord.password),
         });
     }
 
     static createVault(requestBody, successCallback, errorCallback) {
         UserService.setAuthToken().then(() => {
             post('/vault', requestBody, successCallback, errorCallback);
+        });
+    }
+
+    static getVaults(deviceId, successCallback, errorCallback) {
+        UserService.setAuthToken().then(() => {
+            get(`/vault/for-device/${deviceId}`, successCallback, errorCallback);
+        });
+    }
+
+    static getVaultKey(vaultId, deviceId, successCallback, errorCallback) {
+        UserService.setAuthToken().then(() => {
+            get(`/vault-key/for-vault/${vaultId}/for-device/${deviceId}`, successCallback, errorCallback);
+        });
+    }
+
+    static createVaultRecord(vaultId, requestBody, successCallback, errorCallback) {
+        UserService.setAuthToken().then(() => {
+            post(`/vault-record/create/${vaultId}`, requestBody, successCallback, errorCallback);
+        });
+    }
+
+    static getVaultRecords(vaultId, successCallback, errorCallback) {
+        UserService.setAuthToken().then(() => {
+            get(`/vault-record/for-vault/${vaultId}`, successCallback, errorCallback);
         });
     }
 }

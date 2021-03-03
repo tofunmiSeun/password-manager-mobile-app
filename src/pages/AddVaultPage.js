@@ -19,9 +19,7 @@ export default function AddVaultPage({ navigation }) {
         const encryptedVaultKey = await VaultService.generateAndEncryptVaultKey(masterPassword, deviceDetails);
 
         VaultService.createVault({ name: vaultName, deviceId, encryptedVaultKey }, (vaultId) => {
-            navigation.navigate('Home', {
-                screen: 'VaultRecords', params: { vaultId, vaultName },
-            });
+            navigation.navigate('VaultRecords', { vaultId, vaultName });
             setSubmitting(false);
         }, (errorMessage) => {
             setSubmitting(false);
@@ -31,6 +29,7 @@ export default function AddVaultPage({ navigation }) {
 
     return (
         <FormTempate form={<TextBox initialTextValue={vaultName} onTextChangedCallBack={setVaultName}
+            placeholder='Name'
             isTextInputValid={vaultName.length > 0} />}
             submitButtonTitle='Add'
             isSubmitButtonDisabled={vaultName.trim().length === 0}
