@@ -24,24 +24,6 @@ function XOR(first, second, length) {
     return result;
 }
 
-function getMUK(masterPassword, secretKey, mukSalt, userDetails) {
-    var passwordSaltHashFunction = CryptoES.algo.SHA256.create();
-    passwordSaltHashFunction.update(mukSalt);
-    passwordSaltHashFunction.update(userDetails.email);
-
-    var mixture1 = CryptoES.PBKDF2(masterPassword.trim(), passwordSaltHashFunction.finalize(), {
-        keySize: 256 / 32,
-        iterations: 100000
-    }).toString().toUpperCase();
-
-    var mixture2Function = CryptoES.algo.SHA256.create();
-    mixture2Function.update(secretKey);
-    mixture2Function.update(userDetails.userId);
-    var mixture2 = mixture2Function.finalize().toString().toUpperCase();
-
-    return XOR(mixture1, mixture2, 64);
-};
-
 function generateRsaKeyPairs() {
     var rsa = new RSAKey();
     rsa.generate(256, '10001');
@@ -57,7 +39,7 @@ export default class DeviceCredentialsService {
         var userDetails = await UserService.getUserDetails();
         var mukRandomSalt = uuid.v4();
         var secretKey = await generateSecretKey();
-        var muk = getMUK(masterPassword, secretKey, mukRandomSalt, userDetails);
+        var muk = this.getMUK(masterPassword, secretKey, mukRandomSalt, userDetails);
 
         var rsaKeyPair = generateRsaKeyPairs();
         var encryptedPrivateKey = CryptoES.AES.encrypt(rsaKeyPair.privateKey, muk).toString();
@@ -72,12 +54,42 @@ export default class DeviceCredentialsService {
 
     static async validateDeviceCredentials(device, masterPassword, secretKey) {
         var userDetails = await UserService.getUserDetails();
-        var muk = getMUK(masterPassword, secretKey, device.mukSalt, userDetails);
+        var muk = this.getMUK(masterPassword, secretKey, device.mukSalt, userDetails);
+        var decryptedPrivateKey = this.decryptPrivateKey(muk, device.encryptedPrivateKey);
+        return this.verifyKeyPair(decryptedPrivateKey, device.publicKey);
+    };
 
-        const decrpytedPrvKey = CryptoES.AES.decrypt(device.encryptedPrivateKey, muk).toString(CryptoES.enc.Utf8);
+    static async decryptPrivateKey(muk, encryptedPrivateKey) {
+        return CryptoES.AES.decrypt(encryptedPrivateKey, muk).toString(CryptoES.enc.Utf8);
+    };
 
-        var rsa = new RSAKey();
-        rsa.setPrivateString(decrpytedPrvKey);
-        return rsa.getPublicString() === device.publicKey;
+    static async verifyKeyPair(privateKey, publicKey) {
+        const plain = uuid.v1();
+
+        const rsa = new RSAKey();
+        rsa.setPublicString(publicKey);
+        const cipher = rsa.encrypt(plain);
+
+        var rsa2 = new RSAKey();
+        rsa2.setPrivateString(privateKey);
+        return rsa2.decrypt(cipher) === plain;
+    };
+
+    static getMUK(masterPassword, secretKey, mukSalt, userDetails) {
+        var passwordSaltHashFunction = CryptoES.algo.SHA256.create();
+        passwordSaltHashFunction.update(mukSalt);
+        passwordSaltHashFunction.update(userDetails.email);
+
+        var mixture1 = CryptoES.PBKDF2(masterPassword.trim(), passwordSaltHashFunction.finalize(), {
+            keySize: 256 / 32,
+            iterations: 100000
+        }).toString().toUpperCase();
+
+        var mixture2Function = CryptoES.algo.SHA256.create();
+        mixture2Function.update(secretKey);
+        mixture2Function.update(userDetails.userId);
+        var mixture2 = mixture2Function.finalize().toString().toUpperCase();
+
+        return XOR(mixture1, mixture2, 64);
     };
 };

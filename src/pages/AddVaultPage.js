@@ -3,8 +3,10 @@ import TextBox from '../components/atoms/TextBox';
 import FormTempate from '../components/templates/FormTemplate';
 import VaultService from '../services/VaultService';
 import DeviceService from '../services/DeviceService';
+import MasterPasswordContext from '../context/MasterPasswordContext';
 
 export default function AddVaultPage({ navigation }) {
+    const masterPassword = React.useContext(MasterPasswordContext);
     const [isSubmitting, setSubmitting] = React.useState(false);
     const [vaultName, setVaultName] = React.useState('');
 
@@ -15,14 +17,16 @@ export default function AddVaultPage({ navigation }) {
         const deviceId = deviceDetails.deviceId;
 
         const generatedVaultKey = await VaultService.generateVaultKey();
+        const encryptedVaultKey = await VaultService.encryptVaultKey(masterPassword, deviceDetails, generatedVaultKey);
+        console.log(encryptedVaultKey);
 
-        VaultService.createVault({ name: vaultName, deviceId }, (vaultId) => {
-            console.log(vaultId);
-            setSubmitting(false);
-        }, (errorMessage) => {
-            setSubmitting(false);
-            console.log(errorMessage);
-        })
+        /*  VaultService.createVault({ name: vaultName, deviceId }, (vaultId) => {
+             console.log(vaultId);
+             setSubmitting(false);
+         }, (errorMessage) => {
+             setSubmitting(false);
+             console.log(errorMessage);
+         }) */
     };
 
     return (
