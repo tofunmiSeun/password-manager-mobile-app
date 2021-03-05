@@ -10,6 +10,7 @@ import AddVaultRecordButton from '../components/molecules/AddVaultRecordButton';
 import AddVaultRecordPage from './AddVaultRecordPage';
 import VaultRecordDetailsPage from './VaultRecordDetailsPage';
 import EditVaultRecordButton from '../components/molecules/EditVaultRecordButton';
+import EditVaultRecordPage from './EditVaultRecordPage';
 
 const HomeStack = createStackNavigator();
 
@@ -36,6 +37,10 @@ export default function HomePage({ navigation }) {
                 options={({ route }) => ({
                     title: route.params.vaultRecord.name,
                     headerRight: () => <EditVaultRecordButton vaultParams={route.params} />
+                })} />
+            <HomeStack.Screen name={'EditVaultRecord'} component={EditVaultRecordPage}
+                options={({ route }) => ({
+                    title: route.params.vaultRecord.name,
                 })} />
         </HomeStack.Navigator>
     </MasterPasswordContext.Provider>;

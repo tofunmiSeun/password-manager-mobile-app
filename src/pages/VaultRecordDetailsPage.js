@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import UserAvatar from 'react-native-user-avatar';
 import { Entypo, EvilIcons, Feather, Ionicons } from '@expo/vector-icons';
 import ListItemSeparator from '../components/atoms/ListItemSeparator';
-import { formatAvatarText } from '../Utils';
 
 export default function VaultRecordDetails({ route }) {
     const { vaultRecord } = route?.params;

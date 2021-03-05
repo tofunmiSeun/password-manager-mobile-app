@@ -8,6 +8,6 @@ export default function EditVaultRecordButton({ vaultParams }) {
 
     return (
         <HeaderButton iconView={<Feather name="edit" size={24} color="blue" />}
-            onButtonClicked={() => { navigation.navigate('NewVaultRecord', vaultParams) }} />
+            onButtonClicked={() => { navigation.push('EditVaultRecord', vaultParams) }} />
     );
 };

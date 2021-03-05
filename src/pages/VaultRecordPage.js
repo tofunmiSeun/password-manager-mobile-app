@@ -42,7 +42,7 @@ export default function VaultRecordPage({ route, navigation }) {
         return <TouchableOpacity style={styles.listItemContainer} onPress={() => viewVaultRecordDetails(item)}>
             <View>
                 <Text style={styles.listItemText}>{item.name}</Text>
-                {item.url && <Text style={styles.listItemSecondaryText}>{item.url}</Text>}
+                {Boolean(item.url) && <Text style={styles.listItemSecondaryText}>{item.url}</Text>}
             </View>
             <View style={styles.listItemIcon} >
                 <Ionicons name="ios-arrow-forward" size={12} color="grey" />
@@ -51,7 +51,7 @@ export default function VaultRecordPage({ route, navigation }) {
     };
 
     const viewVaultRecordDetails = (vaultRecord) => {
-        navigation.navigate('VaultRecordDetails', { vaultRecord });
+        navigation.push('VaultRecordDetails', { vaultRecord });
     }
 
     return (

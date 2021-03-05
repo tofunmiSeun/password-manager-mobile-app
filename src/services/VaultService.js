@@ -98,4 +98,10 @@ export default class VaultService {
             get(`/vault-record/for-vault/${vaultId}`, successCallback, errorCallback);
         });
     }
+
+    static editVaultRecord(vaultRecordId, requestBody, successCallback, errorCallback) {
+        UserService.setAuthToken().then(() => {
+            post(`/vault-record/edit/${vaultRecordId}`, requestBody, successCallback, errorCallback);
+        });
+    }
 }

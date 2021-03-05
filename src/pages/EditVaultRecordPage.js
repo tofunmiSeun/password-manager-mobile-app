@@ -4,24 +4,23 @@ import VaultService from '../services/VaultService';
 import DeviceService from '../services/DeviceService';
 import MasterPasswordContext from '../context/MasterPasswordContext';
 
-export default function AddVaultRecordPage({ route, navigation }) {
-    const { vaultId, vaultName } = route?.params;
-    const emptyVaultRecord = { name: '', url: '', username: '', password: '' };
+export default function EditVaultRecordPage({ route, navigation }) {
+    const { vaultRecord } = route?.params;
     const masterPassword = React.useContext(MasterPasswordContext);
 
     const [isSubmitting, setSubmitting] = React.useState(false);
 
-    const newVaultRecord = async (vaultRecord) => {
+    const editVaultRecord = async (recordToEdit) => {
         setSubmitting(true);
 
         const deviceDetails = await DeviceService.getDeviceDetails();
         const deviceId = deviceDetails.deviceId;
 
-        VaultService.getVaultKey(vaultId, deviceId, async (vaultKeyResponse) => {
+        VaultService.getVaultKey(recordToEdit.vaultId, deviceId, async (vaultKeyResponse) => {
             const decryptedVaultKey = await VaultService.decryptVaultKey(masterPassword, deviceDetails, vaultKeyResponse.encryptedVaultKey);
-            const cipherRecord = VaultService.encryptVaultRecord(decryptedVaultKey, vaultRecord);
-            VaultService.createVaultRecord(vaultId, cipherRecord, (vaultRecordId) => {
-                navigation.replace('VaultRecords', { vaultId, vaultName });
+            const cipherRecord = VaultService.encryptVaultRecord(decryptedVaultKey, recordToEdit);
+            VaultService.editVaultRecord(recordToEdit.id, cipherRecord, () => {
+                navigation.replace('VaultRecords', { vaultId: recordToEdit.vaultId, vaultName: recordToEdit.vaultName },);
                 setSubmitting(false);
             }, onSubmissionFailed);
 
@@ -32,7 +31,7 @@ export default function AddVaultRecordPage({ route, navigation }) {
         setSubmitting(false);
     }
 
-    return <SubmitVaultRecordTemplate vaultRecord={emptyVaultRecord}
-        onSubmitRecordClicked={newVaultRecord}
+    return <SubmitVaultRecordTemplate vaultRecord={vaultRecord}
+        onSubmitRecordClicked={editVaultRecord}
         isSubmitting={isSubmitting} />
 }
