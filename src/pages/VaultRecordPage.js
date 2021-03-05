@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { Text } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import AppListView from '../components/organisms/AppListView';
 import VaultService from '../services/VaultService';
 import DeviceService from '../services/DeviceService';
@@ -39,8 +39,14 @@ export default function VaultRecordPage({ route }) {
     }
 
     const ListItem = ({ item }) => {
-        return <TouchableOpacity style={{ padding: 16, backgroundColor: '#fff' }}>
-            <Text style={{ fontSize: 16 }}>{item.name}</Text>
+        return <TouchableOpacity style={styles.listItemContainer}>
+            <View>
+                <Text style={styles.listItemText}>{item.name}</Text>
+                {item.url && <Text style={styles.listItemSecondaryText}>{item.url}</Text>}
+            </View>
+            <View style={styles.listItemIcon} >
+                <Ionicons name="ios-arrow-forward" size={12} color="grey" />
+            </View>
         </TouchableOpacity>
     };
 
@@ -52,3 +58,24 @@ export default function VaultRecordPage({ route }) {
             onSearchTextChanged={setSearchKey} />
     );
 }
+
+const styles = StyleSheet.create({
+    listItemContainer: {
+        padding: 16,
+        backgroundColor: '#fff',
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    listItemText: {
+        fontSize: 17
+    },
+    listItemSecondaryText: {
+        marginTop: 2,
+        fontSize: 10,
+        color: '#888'
+    },
+    listItemIcon: {
+        marginVertical: 'auto',
+        marginLeft: 'auto'
+    }
+});

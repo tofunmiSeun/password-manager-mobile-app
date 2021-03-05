@@ -26,7 +26,7 @@ export default function AppListView({
     return (
         <FlatList data={data}
             ListEmptyComponent={NoDataView}
-            ListItemSeparator={ListItemSeparator}
+            ItemSeparatorComponent={ListItemSeparator}
             renderItem={listItem}
             keyExtractor={keyExtractorFunction}
             refreshing={isLoadingData}
