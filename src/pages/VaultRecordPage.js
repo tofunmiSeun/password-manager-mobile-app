@@ -6,7 +6,7 @@ import VaultService from '../services/VaultService';
 import DeviceService from '../services/DeviceService';
 import MasterPasswordContext from '../context/MasterPasswordContext';
 
-export default function VaultRecordPage({ route }) {
+export default function VaultRecordPage({ route, navigation }) {
     const { vaultId } = route?.params;
     const masterPassword = React.useContext(MasterPasswordContext);
 
@@ -39,7 +39,7 @@ export default function VaultRecordPage({ route }) {
     }
 
     const ListItem = ({ item }) => {
-        return <TouchableOpacity style={styles.listItemContainer}>
+        return <TouchableOpacity style={styles.listItemContainer} onPress={() => viewVaultRecordDetails(item)}>
             <View>
                 <Text style={styles.listItemText}>{item.name}</Text>
                 {item.url && <Text style={styles.listItemSecondaryText}>{item.url}</Text>}
@@ -49,6 +49,10 @@ export default function VaultRecordPage({ route }) {
             </View>
         </TouchableOpacity>
     };
+
+    const viewVaultRecordDetails = (vaultRecord) => {
+        navigation.navigate('VaultRecordDetails', { vaultRecord });
+    }
 
     return (
         <AppListView loadingData={loadingData} data={vaultRecords} listItem={ListItem}
