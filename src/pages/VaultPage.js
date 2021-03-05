@@ -26,7 +26,7 @@ export default function VaultPage({ navigation }) {
     }
 
     const ListItem = ({ item }) => (
-        <TouchableOpacity style={{ padding: 16, backgroundColor: '#fff' }}
+        <TouchableOpacity style={{ padding: 16, backgroundColor: '#fafafa' }}
             onPress={() => viewRecordsInVault(item)}>
             <Text style={{ fontSize: 16 }}>{item.name}</Text>
         </TouchableOpacity>

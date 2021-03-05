@@ -62,7 +62,7 @@ export default function VaultRecordPage({ route }) {
 const styles = StyleSheet.create({
     listItemContainer: {
         padding: 16,
-        backgroundColor: '#fff',
+        backgroundColor: '#fafafa',
         display: 'flex',
         flexDirection: 'row'
     },
