@@ -27,7 +27,7 @@ export default function SubmitVaultRecordTempate({ vaultRecord, onSubmitRecordCl
             <TextBox initialTextValue={username} onTextChangedCallBack={setUsername}
                 placeholder='Username'
                 isTextInputValid={username.length > 0} />
-            <PasswordBox onPasswordChangedCallBack={setPassword} /></>}
+            <PasswordBox initialValue={vaultRecord.password} onPasswordChangedCallBack={setPassword} /></>}
             submitButtonTitle='Save'
             isSubmitButtonDisabled={isSubmitButtonDisabled()}
             onSubmitButtonClicked={() => onSubmitRecordClicked(Object.assign(vaultRecord, { name, url, username, password }))}

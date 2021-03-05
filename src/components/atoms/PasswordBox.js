@@ -3,9 +3,9 @@ import { TextInput } from 'react-native';
 import AtomsStyles from './AtomsStyles';
 
 
-export default function PasswordBox({ onPasswordChangedCallBack = (newText) => { return; }, placeholder = 'Password' }) {
+export default function PasswordBox({ initialValue = '', onPasswordChangedCallBack = (newText) => { return; }, placeholder = 'Password' }) {
 
-    const [password, setPassword] = React.useState('');
+    const [password, setPassword] = React.useState(initialValue);
 
     const onPasswordChanged = (newValue) => {
         setPassword(newValue);
