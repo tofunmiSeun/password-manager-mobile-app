@@ -41,7 +41,7 @@ export default function ProvideMasterPasswordPage({ navigation }) {
     return <OnboardingTempate title={'Access Vaults'}
         form={<PasswordBox onPasswordChangedCallBack={setMasterPassword} placeholder='Master password' />}
         alternateActions={[{ title: 'Logout', action: logout }]}
-        submitButton={<AppButton text='Continue'
+        submitButton={<AppButton text='Proceed'
             isDisabled={isSubmitButtonDisabled()}
             onClicked={onValidateMasterPasswordButtonClicked} />}
     />;
