@@ -25,7 +25,7 @@ export default function HomePage({ route }) {
                 options={{ title: 'Add Vault' }} />
             <HomeStack.Screen name={'VaultRecords'} component={VaultRecordPage}
                 options={({ route }) => ({
-                    title: route.params.vaultName,
+                    title: route.params.vault.name,
                     headerRight: () => <AddVaultRecordButton vaultParams={route.params} />
                 })} />
             <HomeStack.Screen name={'NewVaultRecord'} component={AddVaultRecordPage}

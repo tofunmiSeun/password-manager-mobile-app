@@ -1,8 +1,9 @@
 import * as React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 import { Entypo, EvilIcons, Feather, Ionicons } from '@expo/vector-icons';
 import ListItemSeparator from '../components/atoms/ListItemSeparator';
 import VaultService from '../services/VaultService';
+import DetailsPageStyles from './DetailsPageStyles';
 
 export default function VaultRecordDetails({ route, navigation }) {
     const { vaultRecord } = route?.params;
@@ -20,29 +21,29 @@ export default function VaultRecordDetails({ route, navigation }) {
 
     return (
         <View style={{ margin: 16 }}>
-            <View style={styles.section}>
-                <View style={styles.formContainer}>
-                    <Text style={styles.formLabel}>url</Text>
-                    <View style={styles.formDataContainer}>
-                        <Text style={styles.formValue}>{vaultRecord.url}</Text>
+            <View style={DetailsPageStyles.section}>
+                <View style={DetailsPageStyles.formContainer}>
+                    <Text style={DetailsPageStyles.formLabel}>url</Text>
+                    <View style={DetailsPageStyles.formDataContainer}>
+                        <Text style={DetailsPageStyles.formValue}>{vaultRecord.url}</Text>
                         <TouchableOpacity style={{ marginTop: 'auto', marginBottom: 'auto', marginLeft: 'auto' }}>
                             <EvilIcons name="external-link" size={24} color="black" />
                         </TouchableOpacity>
                     </View>
                 </View>
                 <ListItemSeparator />
-                <View style={styles.formContainer}>
-                    <Text style={styles.formLabel}>username</Text>
-                    <View style={styles.formDataContainer}>
-                        <Text style={styles.formValue}>{vaultRecord.username}</Text>
+                <View style={DetailsPageStyles.formContainer}>
+                    <Text style={DetailsPageStyles.formLabel}>username</Text>
+                    <View style={DetailsPageStyles.formDataContainer}>
+                        <Text style={DetailsPageStyles.formValue}>{vaultRecord.username}</Text>
                     </View>
                 </View>
             </View>
-            <View style={styles.section}>
-                <View style={styles.formContainer}>
-                    <Text style={styles.formLabel}>password</Text>
-                    <View style={styles.formDataContainer}>
-                        <Text style={styles.formValue}>
+            <View style={DetailsPageStyles.section}>
+                <View style={DetailsPageStyles.formContainer}>
+                    <Text style={DetailsPageStyles.formLabel}>password</Text>
+                    <View style={DetailsPageStyles.formDataContainer}>
+                        <Text style={DetailsPageStyles.formValue}>
                             {isPasswordRevealed ? vaultRecord.password : getMaskedPassword()}
                         </Text>
                         <TouchableOpacity onPress={() => setPasswordRevealed(!isPasswordRevealed)}
@@ -57,8 +58,8 @@ export default function VaultRecordDetails({ route, navigation }) {
                     </View>
                 </View>
             </View>
-            <View style={styles.section}>
-                <TouchableOpacity style={styles.formDataContainer} onPress={deleteRecord}>
+            <View style={DetailsPageStyles.section}>
+                <TouchableOpacity style={DetailsPageStyles.formDataContainer} onPress={deleteRecord}>
                     <EvilIcons name="trash" size={24} color="red" />
                     <Text style={{ color: 'red', marginLeft: 4, fontSize: 15 }}>Delete</Text>
                 </TouchableOpacity>
@@ -66,30 +67,3 @@ export default function VaultRecordDetails({ route, navigation }) {
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    section: {
-        padding: 8,
-        marginBottom: 16,
-        borderRadius: 4,
-        backgroundColor: '#ffffff'
-    },
-    formContainer: {
-        display: 'flex',
-        margin: 8,
-    },
-    formDataContainer: {
-        display: 'flex',
-        marginTop: 'auto',
-        marginBottom: 'auto',
-        flexDirection: 'row',
-    },
-    formLabel: {
-        marginBottom: 4,
-        color: 'grey',
-        fontSize: 12
-    },
-    formValue: {
-        fontSize: 15
-    },
-});

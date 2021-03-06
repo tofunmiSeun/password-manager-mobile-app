@@ -5,9 +5,10 @@ import AppListView from '../components/organisms/AppListView';
 import VaultService from '../services/VaultService';
 import DeviceService from '../services/DeviceService';
 import MasterPasswordContext from '../context/MasterPasswordContext';
+import DetailsPageStyles from './DetailsPageStyles';
 
 export default function VaultRecordPage({ route, navigation }) {
-    const { vaultId } = route?.params;
+    const { vault } = route?.params;
     const masterPassword = React.useContext(MasterPasswordContext);
 
     const [vaultRecords, setVaultRecords] = React.useState([]);
@@ -24,9 +25,9 @@ export default function VaultRecordPage({ route, navigation }) {
         const deviceDetails = await DeviceService.getDeviceDetails();
         const deviceId = deviceDetails.deviceId;
 
-        VaultService.getVaultKey(vaultId, deviceId, async (vaultKeyResponse) => {
+        VaultService.getVaultKey(vault.id, deviceId, async (vaultKeyResponse) => {
             const plainKey = await VaultService.decryptVaultKey(masterPassword, deviceDetails, vaultKeyResponse.encryptedVaultKey);
-            VaultService.getVaultRecords(vaultId, (response) => {
+            VaultService.getVaultRecords(vault.id, (response) => {
                 setVaultRecords(response.map(e => VaultService.decryptVaultRecord(plainKey, e)));
                 setLoadingData(false);
             }, onSubmissionFailed);
@@ -55,11 +56,21 @@ export default function VaultRecordPage({ route, navigation }) {
     }
 
     return (
-        <AppListView loadingData={loadingData} data={vaultRecords} listItem={ListItem}
-            onListViewRefreshed={getVaultRecords}
-            keyExtractorFunction={item => item.id}
-            searchText={searchKey}
-            onSearchTextChanged={setSearchKey} />
+        <View>
+            <View style={DetailsPageStyles.section}>
+                <View style={DetailsPageStyles.formContainer}>
+                    <Text style={DetailsPageStyles.formLabel}>created by</Text>
+                    <View style={DetailsPageStyles.formDataContainer}>
+                        <Text style={DetailsPageStyles.formValue}>{vault.createdBy}</Text>
+                    </View>
+                </View>
+            </View>
+            <AppListView loadingData={loadingData} data={vaultRecords} listItem={ListItem}
+                onListViewRefreshed={getVaultRecords}
+                keyExtractorFunction={item => item.id}
+                searchText={searchKey}
+                onSearchTextChanged={setSearchKey} />
+        </View>
     );
 }
 

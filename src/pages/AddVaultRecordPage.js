@@ -5,7 +5,7 @@ import DeviceService from '../services/DeviceService';
 import MasterPasswordContext from '../context/MasterPasswordContext';
 
 export default function AddVaultRecordPage({ route, navigation }) {
-    const { vaultId, vaultName } = route?.params;
+    const { vault } = route?.params;
     const emptyVaultRecord = { name: '', url: '', username: '', password: '' };
     const masterPassword = React.useContext(MasterPasswordContext);
 
@@ -17,11 +17,11 @@ export default function AddVaultRecordPage({ route, navigation }) {
         const deviceDetails = await DeviceService.getDeviceDetails();
         const deviceId = deviceDetails.deviceId;
 
-        VaultService.getVaultKey(vaultId, deviceId, async (vaultKeyResponse) => {
+        VaultService.getVaultKey(vault.id, deviceId, async (vaultKeyResponse) => {
             const decryptedVaultKey = await VaultService.decryptVaultKey(masterPassword, deviceDetails, vaultKeyResponse.encryptedVaultKey);
             const cipherRecord = VaultService.encryptVaultRecord(decryptedVaultKey, vaultRecord);
-            VaultService.createVaultRecord(vaultId, cipherRecord, (vaultRecordId) => {
-                navigation.replace('VaultRecords', { vaultId, vaultName });
+            VaultService.createVaultRecord(vault.id, cipherRecord, (vaultRecordId) => {
+                navigation.replace('VaultRecords', { vault });
                 setSubmitting(false);
             }, onSubmissionFailed);
 
