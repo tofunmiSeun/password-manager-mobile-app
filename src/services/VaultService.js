@@ -1,7 +1,7 @@
 import CryptoES from 'crypto-es';
 import * as Random from 'expo-random';
 import RSAKey from 'react-native-rsa';
-import { post, get } from './ApiCallsService';
+import { post, get, httpDelete } from './ApiCallsService';
 import UserService from './UserService';
 import DeviceCredentialsService from './DeviceCredentialsService';
 
@@ -102,6 +102,12 @@ export default class VaultService {
     static editVaultRecord(vaultRecordId, requestBody, successCallback, errorCallback) {
         UserService.setAuthToken().then(() => {
             post(`/vault-record/edit/${vaultRecordId}`, requestBody, successCallback, errorCallback);
+        });
+    }
+
+    static deleteVaultRecord(vaultRecordId, successCallback, errorCallback) {
+        UserService.setAuthToken().then(() => {
+            post(`/vault-record/delete/${vaultRecordId}`, successCallback, errorCallback);
         });
     }
 }

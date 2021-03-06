@@ -2,13 +2,20 @@ import * as React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { Entypo, EvilIcons, Feather, Ionicons } from '@expo/vector-icons';
 import ListItemSeparator from '../components/atoms/ListItemSeparator';
+import VaultService from '../services/VaultService';
 
-export default function VaultRecordDetails({ route }) {
+export default function VaultRecordDetails({ route, navigation }) {
     const { vaultRecord } = route?.params;
     const [isPasswordRevealed, setPasswordRevealed] = React.useState(false);
 
     const getMaskedPassword = () => {
         return "*".repeat(vaultRecord.password.length);
+    }
+
+    const deleteRecord = () => {
+        VaultService.deleteVaultRecord(vaultRecord.id, () => {
+            navigation.goBack();
+        }, (errorMessage) => console.log(errorMessage));
     }
 
     return (
@@ -51,7 +58,7 @@ export default function VaultRecordDetails({ route }) {
                 </View>
             </View>
             <View style={styles.section}>
-                <TouchableOpacity style={styles.formDataContainer}>
+                <TouchableOpacity style={styles.formDataContainer} onPress={deleteRecord}>
                     <EvilIcons name="trash" size={24} color="red" />
                     <Text style={{ color: 'red', marginLeft: 4, fontSize: 15 }}>Delete</Text>
                 </TouchableOpacity>

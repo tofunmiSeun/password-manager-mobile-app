@@ -33,3 +33,16 @@ export function get(url, successCallback, errorCallback) {
             }
         });
 }
+
+export function httpDelete(url, successCallback, errorCallback) {
+    axios.delete(SERVER_URL + url)
+        .then(response => {
+            successCallback(response.data);
+        }).catch(error => {
+            if (error.response) {
+                errorCallback(error.response.data);
+            } else {
+                errorCallback(error.message);
+            }
+        });
+}
