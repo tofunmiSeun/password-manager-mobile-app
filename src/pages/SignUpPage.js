@@ -29,7 +29,7 @@ export default function SignUpPage({ navigation }) {
     const isSignUpButtonDisabled = () => {
         return !Boolean(name.trim()) ||
             !Boolean(email.trim()) ||
-            !Boolean(password.trim());
+            password.trim().length < 8
     };
 
     const onSignUpButtonClicked = () => {

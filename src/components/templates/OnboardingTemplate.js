@@ -22,7 +22,8 @@ export default function OnboardingTempate({ title, form, submitButton, alternate
 const styles = StyleSheet.create({
     container: {
         padding: 16,
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        flex: 1
     },
     pageTitle: {
         marginTop: 24,

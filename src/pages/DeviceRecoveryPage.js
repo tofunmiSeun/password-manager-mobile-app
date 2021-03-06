@@ -54,28 +54,28 @@ export default function DeviceRecoveryPage({ navigation }) {
     const isSubmitButtonDisabled = () => {
         return !Boolean(selectedDevice) ||
             !Boolean(secretKey.trim()) ||
-            !Boolean(masterPassword.trim());
+            masterPassword.trim().length < 8;
     };
 
     const onRecoverDeviceButtonClicked = async () => {
-        var isValid = false;
         try {
+            var isValid = false;
             isValid = await DeviceCredentialsService.validateDeviceCredentials(selectedDevice, masterPassword, secretKey);
+            if (isValid) {
+                await DeviceService.saveDeviceRegistrationCredentials({
+                    deviceName: selectedDevice.alias,
+                    deviceId: selectedDevice.id,
+                    publicKey: selectedDevice.publicKey,
+                    encryptedPrivateKey: selectedDevice.encryptedPrivateKey,
+                    mukSalt: selectedDevice.mukSalt,
+                    secretKey: secretKey
+                });
+                navigation.replace('Home', { masterPassword });
+            } else {
+                onDeviceRecoveryFailed();
+            }
         } catch (error) {
             console.log(error);
-            onDeviceRecoveryFailed();
-        }
-        if (isValid) {
-            await DeviceService.saveDeviceRegistrationCredentials({
-                deviceName: selectedDevice.alias,
-                deviceId: selectedDevice.id,
-                publicKey: selectedDevice.publicKey,
-                encryptedPrivateKey: selectedDevice.encryptedPrivateKey,
-                mukSalt: selectedDevice.mukSalt,
-                secretKey: secretKey
-            });
-            navigation.replace('Home');
-        } else {
             onDeviceRecoveryFailed();
         }
     };

@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginPage';
 import SignUpPage from './pages/SignUpPage';
 import DeviceRecoveryPage from './pages/DeviceRecoveryPage';
 import DeviceRegistrationPage from './pages/DeviceRegistrationPage';
+import ProvideMasterPasswordPage from './pages/ProvideMasterPasswordPage';
 import HomePage from './pages/HomePage';
 
 const Stack = createStackNavigator();
@@ -20,6 +21,7 @@ export default function App() {
   const LOGIN = 'Login';
   const RECOVER_DEVICE = 'RecoverDevice';
   const REGISTER_DEVICE = 'RegisterDevice';
+  const PROVIDE_MASTER_PASSWORD = 'ProvideMasterPassword';
   const HOME = 'Home';
 
   const [appIsReady, setAppIsReady] = React.useState(false);
@@ -34,7 +36,7 @@ export default function App() {
     const deviceIsRegistered = await DeviceService.isDeviceRegistered();
 
     if (userIsLoggedIn && deviceIsRegistered) {
-      setInitialRouteName(HOME);
+      setInitialRouteName(PROVIDE_MASTER_PASSWORD);
     } else if (userIsLoggedIn) {
       setInitialRouteName(RECOVER_DEVICE);
     } else {
@@ -52,6 +54,7 @@ export default function App() {
           <Stack.Screen name={LOGIN} component={LoginPage} />
           <Stack.Screen name={RECOVER_DEVICE} component={DeviceRecoveryPage} />
           <Stack.Screen name={REGISTER_DEVICE} component={DeviceRegistrationPage} />
+          <Stack.Screen name={PROVIDE_MASTER_PASSWORD} component={ProvideMasterPasswordPage} />
           <Stack.Screen name={HOME} component={HomePage} />
         </Stack.Navigator>
       </NavigationContainer>}

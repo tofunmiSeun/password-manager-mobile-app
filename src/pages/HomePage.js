@@ -14,12 +14,11 @@ import EditVaultRecordPage from './EditVaultRecordPage';
 
 const HomeStack = createStackNavigator();
 
-export default function HomePage({ navigation }) {
-    const [homeInitialRouteName, setInitialRouteName] = React.useState('Vaults');
-    const [masterPassword, setMasterPassword] = React.useState('password');
+export default function HomePage({ route }) {
+    const masterPassword = route.params?.masterPassword;
 
     return <MasterPasswordContext.Provider value={masterPassword}>
-        <HomeStack.Navigator initialRouteName={homeInitialRouteName}>
+        <HomeStack.Navigator initialRouteName='Vaults'>
             <HomeStack.Screen name={'Vaults'} component={VaultPage}
                 options={{ headerRight: () => <AddVaultButton /> }} />
             <HomeStack.Screen name={'NewVault'} component={AddVaultPage}

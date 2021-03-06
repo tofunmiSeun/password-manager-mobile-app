@@ -25,7 +25,7 @@ export default function DeviceRegistrationPage({ navigation }) {
 
     const isSubmitButtonDisabled = () => {
         return !Boolean(deviceName.trim()) ||
-            !Boolean(masterPassword.trim());
+            masterPassword.trim().length < 8;
     };
 
     const onRegisterDeviceButtonClicked = async () => {
@@ -41,8 +41,7 @@ export default function DeviceRegistrationPage({ navigation }) {
             generatedKeyDetails.deviceId = deviceId;
             await DeviceService.saveDeviceRegistrationCredentials(generatedKeyDetails);
             alert(generatedKeyDetails.secretKey);
-            setMasterPassword('');
-            navigation.replace('Home');
+            navigation.replace('Home', { masterPassword });
         }, (errorMessage) => {
             console.log(errorMessage);
         })

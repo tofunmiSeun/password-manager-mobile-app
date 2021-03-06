@@ -55,7 +55,7 @@ export default class DeviceCredentialsService {
     static async validateDeviceCredentials(device, masterPassword, secretKey) {
         var userDetails = await UserService.getUserDetails();
         var muk = this.getMUK(masterPassword, secretKey, device.mukSalt, userDetails);
-        var decryptedPrivateKey = this.decryptPrivateKey(muk, device.encryptedPrivateKey);
+        var decryptedPrivateKey = await this.decryptPrivateKey(muk, device.encryptedPrivateKey);
         return this.verifyKeyPair(decryptedPrivateKey, device.publicKey);
     };
 
