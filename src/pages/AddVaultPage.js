@@ -1,6 +1,5 @@
 import * as React from 'react';
-import TextBox from '../components/atoms/TextBox';
-import FormTempate from '../components/templates/FormTemplate';
+import SubmitVaultTemplate from '../components/templates/SubmitVaultTemplate';
 import VaultService from '../services/VaultService';
 import DeviceService from '../services/DeviceService';
 import MasterPasswordContext from '../context/MasterPasswordContext';
@@ -8,9 +7,8 @@ import MasterPasswordContext from '../context/MasterPasswordContext';
 export default function AddVaultPage({ navigation }) {
     const masterPassword = React.useContext(MasterPasswordContext);
     const [isSubmitting, setSubmitting] = React.useState(false);
-    const [vaultName, setVaultName] = React.useState('');
 
-    const newVault = async () => {
+    const newVault = async (vaultName) => {
         setSubmitting(true);
 
         const deviceDetails = await DeviceService.getDeviceDetails();
@@ -27,13 +25,5 @@ export default function AddVaultPage({ navigation }) {
         })
     };
 
-    return (
-        <FormTempate form={<TextBox initialTextValue={vaultName} onTextChangedCallBack={setVaultName}
-            placeholder='Name'
-            isTextInputValid={vaultName.length > 0} />}
-            submitButtonTitle='Add'
-            isSubmitButtonDisabled={vaultName.trim().length === 0}
-            onSubmitButtonClicked={newVault}
-            isSubmittingForm={isSubmitting} />
-    );
+    return <SubmitVaultTemplate vaultName='' onSubmitVaultClicked={newVault} isSubmitting={isSubmitting} />;
 }

@@ -81,6 +81,12 @@ export default class VaultService {
         });
     }
 
+    static editVault(vaultId, requestBody, successCallback, errorCallback) {
+        UserService.setAuthToken().then(() => {
+            post(`/vault/edit/${vaultId}`, requestBody, successCallback, errorCallback);
+        });
+    }
+
     static getVaultKey(vaultId, deviceId, successCallback, errorCallback) {
         UserService.setAuthToken().then(() => {
             get(`/vault-key/for-vault/${vaultId}/for-device/${deviceId}`, successCallback, errorCallback);

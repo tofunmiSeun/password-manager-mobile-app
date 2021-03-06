@@ -6,7 +6,8 @@ import VaultPage from './VaultPage';
 import AddVaultButton from '../components/molecules/AddVaultButton';
 import AddVaultPage from './AddVaultPage';
 import VaultRecordPage from './VaultRecordPage';
-import AddVaultRecordButton from '../components/molecules/AddVaultRecordButton';
+import EditVaultPage from './EditVaultPage';
+import VaultDetailsPageMenu from '../components/organisms/VaultDetailsPageMenu';
 import AddVaultRecordPage from './AddVaultRecordPage';
 import VaultRecordDetailsPage from './VaultRecordDetailsPage';
 import EditVaultRecordButton from '../components/molecules/EditVaultRecordButton';
@@ -26,7 +27,11 @@ export default function HomePage({ route }) {
             <HomeStack.Screen name={'VaultRecords'} component={VaultRecordPage}
                 options={({ route }) => ({
                     title: route.params.vault.name,
-                    headerRight: () => <AddVaultRecordButton vaultParams={route.params} />
+                    headerRight: () => <VaultDetailsPageMenu route={route} />
+                })} />
+            <HomeStack.Screen name={'EditVault'} component={EditVaultPage}
+                options={({ route }) => ({
+                    title: route.params.vault.name,
                 })} />
             <HomeStack.Screen name={'NewVaultRecord'} component={AddVaultRecordPage}
                 options={({ route }) => ({
