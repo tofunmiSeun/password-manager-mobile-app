@@ -23,7 +23,7 @@ export default function SignUpPage({ navigation }) {
     </View>;
 
     const goToLogin = () => {
-        navigation.navigate('Login');
+        navigation.replace('Login');
     }
 
     const isSignUpButtonDisabled = () => {
@@ -37,7 +37,7 @@ export default function SignUpPage({ navigation }) {
             setName('');
             setEmail('');
             setPassword('');
-            navigation.navigate('SignUp');
+            navigation.replace('SignUp');
         }, (errorMessage) => {
             console.log(errorMessage);
         });

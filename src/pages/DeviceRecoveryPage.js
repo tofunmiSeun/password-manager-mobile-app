@@ -18,7 +18,7 @@ export default function DeviceRecoveryPage({ navigation }) {
         DeviceService.getAllDevices((response) => {
             setDevices(response);
             if (response.length === 0) {
-                navigation.navigate('RegisterDevice');
+                navigation.replace('RegisterDevice');
             }
         }, (errorMessage) => {
             console.log(errorMessage);
@@ -36,11 +36,11 @@ export default function DeviceRecoveryPage({ navigation }) {
 
     const logout = () => {
         UserService.logout();
-        navigation.navigate('Login');
+        navigation.replace('Login');
     };
 
     const registerNewDevice = () => {
-        navigation.navigate('RegisterDevice');
+        navigation.replace('RegisterDevice');
     };
 
     const DeviceForm = <View>
@@ -74,7 +74,7 @@ export default function DeviceRecoveryPage({ navigation }) {
                 mukSalt: selectedDevice.mukSalt,
                 secretKey: secretKey
             });
-            navigation.navigate('Home');
+            navigation.replace('Home');
         } else {
             onDeviceRecoveryFailed();
         }

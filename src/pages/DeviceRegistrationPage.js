@@ -12,7 +12,7 @@ export default function DeviceRegistrationPage({ navigation }) {
     const [masterPassword, setMasterPassword] = React.useState('');
 
     const recoverDevice = () => {
-        navigation.navigate('RecoverDevice');
+        navigation.replace('RecoverDevice');
     };
 
     const DeviceForm = <View>
@@ -42,7 +42,7 @@ export default function DeviceRegistrationPage({ navigation }) {
             await DeviceService.saveDeviceRegistrationCredentials(generatedKeyDetails);
             alert(generatedKeyDetails.secretKey);
             setMasterPassword('');
-            navigation.navigate('Home');
+            navigation.replace('Home');
         }, (errorMessage) => {
             console.log(errorMessage);
         })

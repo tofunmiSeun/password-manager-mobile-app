@@ -19,7 +19,7 @@ export default function LoginPage({ navigation }) {
     </View>;
 
     const goToSignUp = () => {
-        navigation.navigate('SignUp');
+        navigation.replace('SignUp');
     }
 
     const isLoginButtonDisabled = () => {
@@ -31,7 +31,7 @@ export default function LoginPage({ navigation }) {
         UserService.login({ email, password }, () => {
             setEmail('');
             setPassword('');
-            navigation.navigate('RecoverDevice');
+            navigation.replace('RecoverDevice');
         }, (errorMessage) => {
             console.log(errorMessage);
         });
