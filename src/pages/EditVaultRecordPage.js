@@ -20,7 +20,7 @@ export default function EditVaultRecordPage({ route, navigation }) {
             const decryptedVaultKey = await VaultService.decryptVaultKey(masterPassword, deviceDetails, vaultKeyResponse.encryptedVaultKey);
             const cipherRecord = VaultService.encryptVaultRecord(decryptedVaultKey, recordToEdit);
             VaultService.editVaultRecord(recordToEdit.id, cipherRecord, () => {
-                navigation.replace('VaultRecords', { vaultId: recordToEdit.vaultId, vaultName: recordToEdit.vaultName },);
+                navigation.replace('VaultRecords', { vault: { id: recordToEdit.vaultId, name: recordToEdit.vaultName } },);
                 setSubmitting(false);
             }, onSubmissionFailed);
 
