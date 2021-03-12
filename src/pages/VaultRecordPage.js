@@ -5,7 +5,6 @@ import AppListView from '../components/organisms/AppListView';
 import VaultService from '../services/VaultService';
 import DeviceService from '../services/DeviceService';
 import MasterPasswordContext from '../context/MasterPasswordContext';
-import DetailsPageStyles from './DetailsPageStyles';
 
 export default function VaultRecordPage({ route, navigation }) {
     const { vault } = route?.params;
@@ -55,23 +54,11 @@ export default function VaultRecordPage({ route, navigation }) {
         navigation.push('VaultRecordDetails', { vaultRecord });
     }
 
-    return (
-        <View>
-            <View style={DetailsPageStyles.section}>
-                <View style={DetailsPageStyles.formContainer}>
-                    <Text style={DetailsPageStyles.formLabel}>created by</Text>
-                    <View style={DetailsPageStyles.formDataContainer}>
-                        <Text style={DetailsPageStyles.formValue}>{vault.createdBy}</Text>
-                    </View>
-                </View>
-            </View>
-            <AppListView loadingData={loadingData} data={vaultRecords} listItem={ListItem}
-                onListViewRefreshed={getVaultRecords}
-                keyExtractorFunction={item => item.id}
-                searchText={searchKey}
-                onSearchTextChanged={setSearchKey} />
-        </View>
-    );
+    return <AppListView loadingData={loadingData} data={vaultRecords} listItem={ListItem}
+        onListViewRefreshed={getVaultRecords}
+        keyExtractorFunction={item => item.id}
+        searchText={searchKey}
+        onSearchTextChanged={setSearchKey} />;
 }
 
 const styles = StyleSheet.create({

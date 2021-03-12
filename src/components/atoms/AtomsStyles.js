@@ -9,7 +9,6 @@ export default StyleSheet.create({
     },
     button: {
         marginTop: 40,
-        backgroundColor: '#1f5ebd',
         alignItems: 'center',
         padding: 4,
         borderRadius: 4,

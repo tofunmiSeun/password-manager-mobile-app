@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
+import { APP_PRIMARY_COLOR } from '../../Utils';
 import ConfiguredKeyboardAvoidingView from './ConfiguredKeyboardAvoidingView';
 
 export default function OnboardingTempate({ title, form, submitButton, alternateActions }) {
@@ -11,7 +12,7 @@ export default function OnboardingTempate({ title, form, submitButton, alternate
             {alternateActions.map(action => {
                 return <TouchableOpacity key={action.title} style={styles.alternateLink}
                     onPress={action.action}>
-                    <Text>{action.title}</Text>
+                    <Text style={styles.alternateLinkText}>{action.title}</Text>
                 </TouchableOpacity>;
             })}
         </View>}
@@ -33,12 +34,16 @@ const styles = StyleSheet.create({
     },
     alternateLinksGrid: {
         alignSelf: 'flex-end',
+        justifyContent: 'space-between',
         marginTop: 8,
         display: 'flex',
         flexDirection: 'row'
     },
     alternateLink: {
         marginLeft: 8
+    },
+    alternateLinkText: {
+        color: APP_PRIMARY_COLOR
     },
     actionButton: {
         marginTop: 40
