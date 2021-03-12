@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, TouchableOpacity, View, StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
+import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import ConfiguredKeyboardAvoidingView from './ConfiguredKeyboardAvoidingView';
 
 export default function OnboardingTempate({ title, form, submitButton, alternateActions }) {
@@ -41,6 +41,6 @@ const styles = StyleSheet.create({
         marginLeft: 8
     },
     actionButton: {
-        marginTop: 'auto'
+        marginTop: 40
     },
 });
