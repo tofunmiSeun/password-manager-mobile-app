@@ -1,5 +1,4 @@
-const SERVER_URL = 'https://tofunmi-og-cred-vault.herokuapp.com/api/v1/vault-records';
-
+const APP_PRIMARY_COLOR = '#6205ee';
 const formatAvatarText = (name) => {
     const splitBySpace = name.split(" ").slice(0, 2)
     let formattedData = ""
@@ -9,4 +8,4 @@ const formatAvatarText = (name) => {
     return formattedData;
 }
 
-export {SERVER_URL, formatAvatarText}
+export { APP_PRIMARY_COLOR, formatAvatarText }
