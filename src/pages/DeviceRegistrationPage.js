@@ -10,6 +10,7 @@ import OnboardingTempate from '../components/templates/OnboardingTemplate';
 export default function DeviceRegistrationPage({ navigation }) {
     const [deviceName, setDeviceName] = React.useState('');
     const [masterPassword, setMasterPassword] = React.useState('');
+    const [loadingData, setLoadingData] = React.useState(false);
 
     const recoverDevice = () => {
         navigation.replace('RecoverDevice');
@@ -29,6 +30,7 @@ export default function DeviceRegistrationPage({ navigation }) {
     };
 
     const onRegisterDeviceButtonClicked = async () => {
+        setLoadingData(true);
         const generatedKeyDetails = await DeviceCredentialsService.generateAndSaveKeys(masterPassword);
         const requestBody = {
             alias: deviceName,
@@ -40,9 +42,11 @@ export default function DeviceRegistrationPage({ navigation }) {
             generatedKeyDetails.deviceName = deviceName;
             generatedKeyDetails.deviceId = deviceId;
             await DeviceService.saveDeviceRegistrationCredentials(generatedKeyDetails);
+            setLoadingData(false);
             alert(generatedKeyDetails.secretKey);
             navigation.replace('Home', { masterPassword });
         }, (errorMessage) => {
+            setLoadingData(false);
             console.log(errorMessage);
         })
     };
@@ -51,6 +55,7 @@ export default function DeviceRegistrationPage({ navigation }) {
         form={DeviceForm}
         alternateActions={[{ title: 'Recover device', action: recoverDevice }]}
         submitButton={<AppButton text='Register'
+            isLoading={loadingData}
             isDisabled={isSubmitButtonDisabled()}
             onClicked={onRegisterDeviceButtonClicked} />}
     />;

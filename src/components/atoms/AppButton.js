@@ -1,15 +1,17 @@
 import * as React from 'react';
-import { TouchableOpacity, Text, Button } from 'react-native';
+import { TouchableOpacity, Text } from 'react-native';
+import { Button } from 'react-native-elements';
 import AtomsStyles from './AtomsStyles';
-import { APP_PRIMARY_COLOR } from '../../Utils';
 
 
-export default function AppButton({ text = '', onClicked = () => { return; }, isDisabled = false }) {
+export default function AppButton({ text = '', onClicked = () => { return; }, isDisabled = false, isLoading = false }) {
     return (
-        <Button style={AtomsStyles.button}
-            color={APP_PRIMARY_COLOR}
+        <Button containerStyle={{ marginTop: 40 }}
+            buttonStyle={AtomsStyles.button}
             onPress={onClicked}
-            disabled={isDisabled}
+            disabled={isDisabled || isLoading}
+            loading={isLoading}
+            raised={true}
             title={text} />
     );
 }

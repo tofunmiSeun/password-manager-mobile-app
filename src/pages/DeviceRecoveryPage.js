@@ -13,6 +13,7 @@ export default function DeviceRecoveryPage({ navigation }) {
     const [selectedDevice, setSelectedDevice] = React.useState();
     const [secretKey, setSecretKey] = React.useState('');
     const [masterPassword, setMasterPassword] = React.useState('');
+    const [loadingData, setLoadingData] = React.useState(false);
 
     React.useEffect(() => {
         DeviceService.getAllDevices((response) => {
@@ -59,6 +60,7 @@ export default function DeviceRecoveryPage({ navigation }) {
 
     const onRecoverDeviceButtonClicked = async () => {
         try {
+            setLoadingData(true);
             var isValid = false;
             isValid = await DeviceCredentialsService.validateDeviceCredentials(selectedDevice, masterPassword, secretKey);
             if (isValid) {
@@ -70,6 +72,7 @@ export default function DeviceRecoveryPage({ navigation }) {
                     mukSalt: selectedDevice.mukSalt,
                     secretKey: secretKey
                 });
+                setLoadingData(false);
                 navigation.replace('Home', { masterPassword });
             } else {
                 onDeviceRecoveryFailed();
@@ -81,6 +84,7 @@ export default function DeviceRecoveryPage({ navigation }) {
     };
 
     const onDeviceRecoveryFailed = () => {
+        setLoadingData(false);
         console.log("Failed to recover device");
     }
 
@@ -89,6 +93,7 @@ export default function DeviceRecoveryPage({ navigation }) {
         alternateActions={[{ title: 'New device', action: registerNewDevice }, { title: 'Logout', action: logout }]}
         submitButton={<AppButton text='Register'
             isDisabled={isSubmitButtonDisabled()}
+            isLoading={loadingData}
             onClicked={onRecoverDeviceButtonClicked} />}
     />;
 }

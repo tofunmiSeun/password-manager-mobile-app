@@ -11,6 +11,7 @@ export default function SignUpPage({ navigation }) {
     const [name, setName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [loadingData, setLoadingData] = React.useState(false);
 
     const SignUpForm = <View>
         <TextBox initialTextValue={name} onTextChangedCallBack={setName}
@@ -33,12 +34,12 @@ export default function SignUpPage({ navigation }) {
     };
 
     const onSignUpButtonClicked = () => {
+        setLoadingData(true);
         UserService.signUp({ name, email, password }, () => {
-            setName('');
-            setEmail('');
-            setPassword('');
+            setLoadingData(false);
             navigation.replace('SignUp');
         }, (errorMessage) => {
+            setLoadingData(false);
             console.log(errorMessage);
         });
     };
@@ -47,6 +48,7 @@ export default function SignUpPage({ navigation }) {
         form={SignUpForm}
         alternateActions={[{ title: 'Login', action: goToLogin }]}
         submitButton={<AppButton text='Sign Up'
+            isLoading={loadingData}
             isDisabled={isSignUpButtonDisabled()}
             onClicked={onSignUpButtonClicked} />}
     />;

@@ -9,6 +9,7 @@ import OnboardingTempate from '../components/templates/OnboardingTemplate';
 export default function LoginPage({ navigation }) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [loadingData, setLoadingData] = React.useState(false);
 
     const LoginForm = <View>
         <TextBox initialTextValue={email} onTextChangedCallBack={setEmail}
@@ -28,11 +29,12 @@ export default function LoginPage({ navigation }) {
     };
 
     const onLoginButtonClicked = () => {
+        setLoadingData(true);
         UserService.login({ email, password }, () => {
-            setEmail('');
-            setPassword('');
+            setLoadingData(false);
             navigation.replace('RecoverDevice');
         }, (errorMessage) => {
+            setLoadingData(false);
             console.log(errorMessage);
         });
     };
@@ -41,6 +43,7 @@ export default function LoginPage({ navigation }) {
         form={LoginForm}
         alternateActions={[{ title: 'Sign up', action: goToSignUp }]}
         submitButton={<AppButton text='Login'
+            isLoading={loadingData}
             isDisabled={isLoginButtonDisabled()}
             onClicked={onLoginButtonClicked} />}
     />;

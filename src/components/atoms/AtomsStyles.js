@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { APP_PRIMARY_COLOR } from '../../Utils';
 
 export default StyleSheet.create({
     textInput: {
@@ -8,11 +9,11 @@ export default StyleSheet.create({
         marginBottom: 16
     },
     button: {
-        marginTop: 40,
         alignItems: 'center',
-        padding: 4,
+        padding: 8,
         borderRadius: 4,
-        minHeight: 42
+        minHeight: 42,
+        backgroundColor: APP_PRIMARY_COLOR
     },
     buttonText: {
         color: 'white',

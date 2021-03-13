@@ -7,6 +7,7 @@ import AppButton from '../components/atoms/AppButton';
 import OnboardingTempate from '../components/templates/OnboardingTemplate';
 
 export default function ProvideMasterPasswordPage({ navigation }) {
+    const [isValidatingPassword, setValidatingPassword] = React.useState(false);
     const [masterPassword, setMasterPassword] = React.useState('');
 
     const logout = () => {
@@ -19,10 +20,12 @@ export default function ProvideMasterPasswordPage({ navigation }) {
     };
 
     const onValidateMasterPasswordButtonClicked = async () => {
+        setValidatingPassword(true);
         const device = await DeviceService.getDeviceDetails();
         try {
             var isValid = false;
             isValid = await DeviceCredentialsService.validateDeviceCredentials(device, masterPassword, device.secretKey);
+            setValidatingPassword(false);
             if (isValid) {
                 navigation.replace('Home', { masterPassword });
             } else {
@@ -42,6 +45,7 @@ export default function ProvideMasterPasswordPage({ navigation }) {
         form={<PasswordBox onPasswordChangedCallBack={setMasterPassword} placeholder='Master password' />}
         alternateActions={[{ title: 'Logout', action: logout }]}
         submitButton={<AppButton text='Proceed'
+            isLoading={isValidatingPassword}
             isDisabled={isSubmitButtonDisabled()}
             onClicked={onValidateMasterPasswordButtonClicked} />}
     />;
