@@ -1,7 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Modal } from 'react-native';
 import { ListItem, Overlay, Divider } from 'react-native-elements';
-import Modal from 'modal-react-native-web';
 import { useNavigation } from '@react-navigation/native';
 
 

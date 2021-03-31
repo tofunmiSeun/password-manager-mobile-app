@@ -1,25 +1,20 @@
-import { Platform } from 'react-native';
 import { setAuthorizationToken, post } from '../services/ApiCallsService';
-import PlainKeyValuePairStorage from '../storage/PlainKeyValuePairStorage';
-import SecureKeyValuePairStorage from '../storage/SecureKeyValuePairStorage';
+import KeyValuePairStorage from '../storage/KeyValuePairStorage';
 
 const USER_TOKEN_KEY = 'LOGGED_IN_USER_TOKEN';
 
 export default class UserService {
     static async isLoggedIn() {
-        return Platform.OS !== 'web' ? SecureKeyValuePairStorage.containsKey(USER_TOKEN_KEY) :
-            PlainKeyValuePairStorage.containsKey(USER_TOKEN_KEY);
+        return KeyValuePairStorage.containsKey(USER_TOKEN_KEY);
     }
 
     static async saveUserDetails(tokenResponse) {
         var responseString = JSON.stringify(tokenResponse);
-        Platform.OS !== 'web' ? SecureKeyValuePairStorage.save(USER_TOKEN_KEY, responseString) :
-            PlainKeyValuePairStorage.save(USER_TOKEN_KEY, responseString);
+        KeyValuePairStorage.save(USER_TOKEN_KEY, responseString);
     }
 
     static async getUserDetails() {
-        var userDetails = await (Platform.OS !== 'web' ? SecureKeyValuePairStorage.get(USER_TOKEN_KEY) :
-            PlainKeyValuePairStorage.get(USER_TOKEN_KEY));
+        var userDetails = await KeyValuePairStorage.get(USER_TOKEN_KEY);
         return JSON.parse(userDetails);
     }
 
@@ -29,8 +24,7 @@ export default class UserService {
     }
 
     static async clearUserDetails() {
-        Platform.OS !== 'web' ? SecureKeyValuePairStorage.delete(USER_TOKEN_KEY) :
-            PlainKeyValuePairStorage.delete(USER_TOKEN_KEY);
+        KeyValuePairStorage.delete(USER_TOKEN_KEY);
     }
 
     static logout() {
