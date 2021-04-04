@@ -21,31 +21,24 @@ export default function HomePage({ route }) {
     return <MasterPasswordContext.Provider value={masterPassword}>
         <HomeStack.Navigator initialRouteName='Vaults'>
             <HomeStack.Screen name={'Vaults'} component={VaultPage}
-                options={{ headerRight: () => <AddVaultButton /> }} />
-            <HomeStack.Screen name={'NewVault'} component={AddVaultPage}
-                options={{ title: 'Add Vault' }} />
+                options={({ navigation }) => ({ headerRight: () => <AddVaultButton navigation={navigation} /> })} />
+            <HomeStack.Screen name={'NewVault'} component={AddVaultPage} options={{ title: 'Add Vault' }} />
             <HomeStack.Screen name={'VaultRecords'} component={VaultRecordPage}
-                options={({ route }) => ({
+                options={({ route, navigation }) => ({
                     title: route.params.vault.name,
                     headerRight: () => <VaultRecordMenuButton vault={route.params.vault} />
                 })} />
             <HomeStack.Screen name={'EditVault'} component={EditVaultPage}
-                options={({ route }) => ({
-                    title: route.params.vault.name,
-                })} />
+                options={({ route }) => ({ title: route.params.vault.name })} />
             <HomeStack.Screen name={'NewVaultRecord'} component={AddVaultRecordPage}
-                options={({ route }) => ({
-                    title: `Add to ${route.params.vault.name}`,
-                })} />
+                options={({ route }) => ({ title: `Add to ${route.params.vault.name}` })} />
             <HomeStack.Screen name={'VaultRecordDetails'} component={VaultRecordDetailsPage}
-                options={({ route }) => ({
+                options={({ route, navigation }) => ({
                     title: route.params.vaultRecord.name,
-                    headerRight: () => <EditVaultRecordButton vaultParams={route.params} />
+                    headerRight: () => <EditVaultRecordButton vaultParams={route.params} navigation={navigation} />
                 })} />
             <HomeStack.Screen name={'EditVaultRecord'} component={EditVaultRecordPage}
-                options={({ route }) => ({
-                    title: route.params.vaultRecord.name,
-                })} />
+                options={({ route }) => ({ title: route.params.vaultRecord.name })} />
         </HomeStack.Navigator>
     </MasterPasswordContext.Provider>;
 
