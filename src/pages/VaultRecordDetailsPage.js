@@ -20,9 +20,9 @@ export default function VaultRecordDetails({ route, navigation }) {
     }
 
     return (
-        <View style={{ margin: 16 }}>
-            <View style={DetailsPageStyles.section}>
-                <View style={DetailsPageStyles.formContainer}>
+        <View style={DetailsPageStyles.section}>
+            <View>
+                {Boolean(vaultRecord.url) && <View style={DetailsPageStyles.formContainer}>
                     <Text style={DetailsPageStyles.formLabel}>url</Text>
                     <View style={DetailsPageStyles.formDataContainer}>
                         <Text style={DetailsPageStyles.formValue}>{vaultRecord.url}</Text>
@@ -30,16 +30,15 @@ export default function VaultRecordDetails({ route, navigation }) {
                             <EvilIcons name="external-link" size={24} color="black" />
                         </TouchableOpacity>
                     </View>
-                </View>
-                <ListItemSeparator />
+                </View>}
+                {Boolean(vaultRecord.url) && <View style={DetailsPageStyles.formContainer}><ListItemSeparator /></View>}
                 <View style={DetailsPageStyles.formContainer}>
                     <Text style={DetailsPageStyles.formLabel}>username</Text>
                     <View style={DetailsPageStyles.formDataContainer}>
                         <Text style={DetailsPageStyles.formValue}>{vaultRecord.username}</Text>
                     </View>
                 </View>
-            </View>
-            <View style={DetailsPageStyles.section}>
+                <View style={DetailsPageStyles.formContainer}><ListItemSeparator /></View>
                 <View style={DetailsPageStyles.formContainer}>
                     <Text style={DetailsPageStyles.formLabel}>password</Text>
                     <View style={DetailsPageStyles.formDataContainer}>
@@ -59,10 +58,11 @@ export default function VaultRecordDetails({ route, navigation }) {
                 </View>
             </View>
             <View style={DetailsPageStyles.section}>
-                <TouchableOpacity style={DetailsPageStyles.formDataContainer} onPress={deleteRecord}>
-                    <EvilIcons name="trash" size={24} color="red" />
-                    <Text style={{ color: 'red', marginLeft: 4, fontSize: 15 }}>Delete</Text>
-                </TouchableOpacity>
+                <View style={{ display: 'none', flexDirection: 'row', justifyContent: 'space-around' }}>
+                    <TouchableOpacity style={DetailsPageStyles.formDataContainer} onPress={deleteRecord}>
+                        <Ionicons name="trash" size={24} color="red" />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     )

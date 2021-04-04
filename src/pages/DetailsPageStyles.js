@@ -3,8 +3,6 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     section: {
         padding: 8,
-        marginBottom: 16,
-        borderRadius: 4,
         backgroundColor: '#ffffff'
     },
     formContainer: {
