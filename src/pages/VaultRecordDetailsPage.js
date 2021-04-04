@@ -36,6 +36,10 @@ export default function VaultRecordDetails({ route, navigation }) {
                     <Text style={DetailsPageStyles.formLabel}>username</Text>
                     <View style={DetailsPageStyles.formDataContainer}>
                         <Text style={DetailsPageStyles.formValue}>{vaultRecord.username}</Text>
+                        <TouchableOpacity
+                            style={{ marginTop: 'auto', marginBottom: 'auto', marginLeft: 'auto' }}>
+                            <Feather name="copy" size={16} color="black" />
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={DetailsPageStyles.formContainer}><ListItemSeparator /></View>
