@@ -20,9 +20,11 @@ export default function HomePage({ route }) {
     const masterPassword = route.params?.masterPassword;
 
     return <MasterPasswordContext.Provider value={masterPassword}>
-        <HomeStack.Navigator initialRouteName='Vaults' screenOptions={({ navigation }) => ({
-            headerLeft: () => <BackButton navigation={navigation} />
-        })}>
+        <HomeStack.Navigator initialRouteName='Vaults' screenOptions={({ navigation }) => {
+            return navigation.canGoBack() ? ({
+                headerLeft: () => <BackButton navigation={navigation} />
+            }) : {}
+        }}>
             <HomeStack.Screen name={'Vaults'} component={VaultPage}
                 options={({ navigation }) => ({ headerRight: () => <AddVaultButton navigation={navigation} /> })} />
             <HomeStack.Screen name={'NewVault'} component={AddVaultPage} options={{ title: 'Add Vault' }} />
