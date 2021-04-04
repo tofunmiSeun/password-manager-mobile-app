@@ -64,4 +64,3 @@ web-build/
 
 # Env variables
 .env
-package-lock.json
