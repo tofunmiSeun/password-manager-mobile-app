@@ -12,6 +12,7 @@ export default function HeaderButton({ iconView, onButtonClicked = () => { } }) 
 
 const styles = StyleSheet.create({
     parent: {
-        marginRight: 16
+        marginRight: 16,
+        marginLeft: 16
     }
 });
