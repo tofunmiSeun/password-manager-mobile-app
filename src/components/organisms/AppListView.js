@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { StyleSheet, FlatList, View, Text } from 'react-native';
-import { SearchBar } from 'react-native-elements';
 import { Entypo } from '@expo/vector-icons';
 import ListItemSeparator from '../atoms/ListItemSeparator';
 
