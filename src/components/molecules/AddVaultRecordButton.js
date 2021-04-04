@@ -8,7 +8,7 @@ export default function AddVaultRecordButton({ vaultParams }) {
     const navigation = useNavigation();
 
     return (
-        <HeaderButton iconView={<Ionicons name="add" size={32} color={APP_PRIMARY_COLOR} />}
+        <HeaderButton iconView={<Ionicons name="add" size={24} color={APP_PRIMARY_COLOR} />}
             onButtonClicked={() => { navigation.navigate('NewVaultRecord', vaultParams) }} />
     );
 };

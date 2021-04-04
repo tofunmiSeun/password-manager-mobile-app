@@ -8,8 +8,8 @@ export default function VaultRecordMenuButton({ vault }) {
     const [showMenu, setShowMenu] = React.useState(false);
 
     return <>
-        <HeaderButton iconView={<Ionicons name="ellipsis-horizontal-outline"
-            size={32}
+        <HeaderButton iconView={<Ionicons name="ellipsis-horizontal"
+            size={24}
             color={APP_PRIMARY_COLOR} />}
             onButtonClicked={() => { setShowMenu(true) }} />
         <VaultDetailsMenu isVisible={showMenu}
