@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, Modal } from 'react-native';
-import { ListItem, Overlay, Divider } from 'react-native-elements';
+import { StyleSheet, View } from 'react-native';
+import { ListItem, Divider } from 'react-native-elements';
 import { useNavigation } from '@react-navigation/native';
+import ModalTemplate from '../templates/ModalTemplate';
 
 
 export default function VaultDetailsMenu({ isVisible, vault, onMenuClosed = () => { } }) {
@@ -21,9 +22,8 @@ export default function VaultDetailsMenu({ isVisible, vault, onMenuClosed = () =
 
     }
 
-    return <View style={styles.container}>{isVisible &&
-        <Overlay ModalComponent={Modal} isVisible={isVisible} onBackdropPress={onMenuClosed}
-            style={{ padding: 0, margin: 0 }}>
+    return <ModalTemplate modalVisible={isVisible} onModalDismissed={onMenuClosed} modalContent={
+        <View style={{ borderRadius: 30 }}>
             <ListItem onPress={goToAddRecordPage}>
                 <ListItem.Content>
                     <ListItem.Title>Add record</ListItem.Title>
@@ -41,12 +41,6 @@ export default function VaultDetailsMenu({ isVisible, vault, onMenuClosed = () =
                     <ListItem.Title style={{ color: 'red' }}>Delete</ListItem.Title>
                 </ListItem.Content>
             </ListItem>
-        </Overlay>}
-    </View>;
+        </View>}>
+    </ModalTemplate>;
 }
-
-const styles = StyleSheet.create({
-    container: {
-
-    }
-});
