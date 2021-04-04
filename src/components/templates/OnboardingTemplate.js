@@ -7,15 +7,17 @@ export default function OnboardingTempate({ title, form, submitButton, alternate
     return <ConfiguredKeyboardAvoidingView childView={<View style={styles.container}>
         <Text style={{ alignSelf: 'center', fontSize: 18 }}>CredVault</Text>
         <Text style={styles.pageTitle}>{title}</Text>
-        {form}
-        {alternateActions && <View style={styles.alternateLinksGrid}>
-            {alternateActions.map(action => {
-                return <TouchableOpacity key={action.title} style={styles.alternateLink}
-                    onPress={action.action}>
-                    <Text style={styles.alternateLinkText}>{action.title}</Text>
-                </TouchableOpacity>;
-            })}
-        </View>}
+        <View style={{ flex: 1 }}>
+            {form}
+            {alternateActions && <View style={styles.alternateLinksGrid}>
+                {alternateActions.map(action => {
+                    return <TouchableOpacity key={action.title} style={styles.alternateLink}
+                        onPress={action.action}>
+                        <Text style={styles.alternateLinkText}>{action.title}</Text>
+                    </TouchableOpacity>;
+                })}
+            </View>}
+        </View>
         <View style={styles.actionButton}>{submitButton}</View>
     </View>} />;
 }

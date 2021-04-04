@@ -12,7 +12,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         padding: 8,
         borderRadius: 4,
-        minHeight: 42,
+        //minHeight: 42,
         backgroundColor: APP_PRIMARY_COLOR
     },
     buttonText: {

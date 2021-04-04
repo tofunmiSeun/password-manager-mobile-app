@@ -3,7 +3,7 @@ import { StyleSheet, KeyboardAvoidingView, Platform } from 'react-native';
 
 export default function ConfiguredKeyboardAvoidingView({ childView }) {
     return <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"}
-        keyboardVerticalOffset={100} style={styles.container}>
+        keyboardVerticalOffset={50} style={styles.container}>
         {childView}
     </KeyboardAvoidingView>;
 }
