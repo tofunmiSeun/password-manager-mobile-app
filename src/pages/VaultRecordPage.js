@@ -77,7 +77,8 @@ const styles = StyleSheet.create({
         color: '#888'
     },
     listItemIcon: {
-        marginVertical: 'auto',
+        marginTop: 'auto',
+        marginBottom: 'auto',
         marginLeft: 'auto'
     }
 });

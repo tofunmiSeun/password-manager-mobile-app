@@ -1,4 +1,4 @@
-const APP_PRIMARY_COLOR = '#6205ee';
+const APP_PRIMARY_COLOR = '#0374e8'; // previously #6205ee
 const formatAvatarText = (name) => {
     const splitBySpace = name.split(" ").slice(0, 2)
     let formattedData = ""
