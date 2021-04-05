@@ -7,7 +7,7 @@ import ModalTemplate from '../templates/ModalTemplate';
 
 export default function VaultRecordDetailsMenu({ navigation, isVisible, record, onMenuClosed = () => { } }) {
     const goToEditPage = () => {
-        navigation.push('EditVault', { record });
+        navigation.push('EditVaultRecord', { vaultRecord: record });
         onMenuClosed();
     }
 
