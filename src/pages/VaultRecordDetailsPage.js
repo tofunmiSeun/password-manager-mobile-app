@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 import { EvilIcons, Feather, Ionicons } from '@expo/vector-icons';
+import Clipboard from 'expo-clipboard';
 import ListItemSeparator from '../components/atoms/ListItemSeparator';
 import DetailsPageStyles from './DetailsPageStyles';
 
@@ -29,7 +30,7 @@ export default function VaultRecordDetails({ route, navigation }) {
                     <Text style={DetailsPageStyles.formLabel}>username</Text>
                     <View style={DetailsPageStyles.formDataContainer}>
                         <Text style={DetailsPageStyles.formValue}>{vaultRecord.username}</Text>
-                        <TouchableOpacity
+                        <TouchableOpacity onPress={() => Clipboard.setString(vaultRecord.username)}
                             style={{ marginTop: 'auto', marginBottom: 'auto', marginLeft: 'auto' }}>
                             <Feather name="copy" size={16} color="black" />
                         </TouchableOpacity>
@@ -47,7 +48,7 @@ export default function VaultRecordDetails({ route, navigation }) {
                             <Ionicons name={isPasswordRevealed ? 'ios-eye-off' : 'ios-eye'}
                                 size={16} color="black" />
                         </TouchableOpacity>
-                        <TouchableOpacity
+                        <TouchableOpacity onPress={() => Clipboard.setString(vaultRecord.password)}
                             style={{ marginTop: 'auto', marginBottom: 'auto', marginLeft: 'auto' }}>
                             <Feather name="copy" size={16} color="black" />
                         </TouchableOpacity>

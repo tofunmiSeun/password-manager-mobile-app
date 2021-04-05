@@ -13,6 +13,7 @@ export default function VaultRecordDetailsMenuButton({ navigation, vaultRecord }
             onButtonClicked={() => { setShowMenu(true) }} />
         <VaultRecordDetailsMenu isVisible={showMenu}
             record={vaultRecord}
+            navigation={navigation}
             onMenuClosed={() => setShowMenu(false)} />
     </>;
 };

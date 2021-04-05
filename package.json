@@ -17,6 +17,7 @@
     "buffer": "^6.0.3",
     "crypto-es": "^1.2.7",
     "expo": "^40.0.0",
+    "expo-clipboard": "^1.0.1",
     "expo-constants": "~9.3.3",
     "expo-random": "~10.0.0",
     "expo-secure-store": "~9.3.0",
