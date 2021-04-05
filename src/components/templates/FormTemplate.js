@@ -11,6 +11,7 @@ export default function FormTempate({ form, submitButtonTitle, isSubmitButtonDis
         <View style={styles.actionButton}>
             <AppButton text={submitButtonTitle}
                 isDisabled={isSubmitButtonDisabled}
+                isLoading={isSubmittingForm}
                 onClicked={onSubmitButtonClicked} />
         </View>
     </>} />;

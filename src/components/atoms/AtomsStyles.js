@@ -4,7 +4,7 @@ import { APP_PRIMARY_COLOR } from '../../Utils';
 export default StyleSheet.create({
     textInput: {
         height: 40,
-        borderColor: APP_PRIMARY_COLOR,
+        borderColor: 'grey',
         borderBottomWidth: 1,
         marginBottom: 16
     },
