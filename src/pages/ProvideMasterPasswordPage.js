@@ -18,29 +18,31 @@ export default function ProvideMasterPasswordPage({ navigation }) {
     };
 
     const isSubmitButtonDisabled = () => {
-        return masterPassword.trim().length < 8;
+        return masterPassword.trim().length < 1;
     };
 
     const onValidateMasterPasswordButtonClicked = async () => {
+        setErrorMessage('');
         setValidatingPassword(true);
         const device = await DeviceService.getDeviceDetails();
         try {
             var isValid = false;
             isValid = await DeviceCredentialsService.validateDeviceCredentials(device, masterPassword, device.secretKey);
-            setValidatingPassword(false);
             if (isValid) {
                 navigation.replace('Home', { masterPassword });
             } else {
-                onMasterPasswordValidationFailed('master password is incorrect for this device');
+                onMasterPasswordValidationFailed();
             }
         } catch (error) {
             onMasterPasswordValidationFailed();
             return;
+        } finally {
+            setValidatingPassword(false);
         }
     };
 
-    const onMasterPasswordValidationFailed = (error = 'failed to validate master password') => {
-        setErrorMessage(error);
+    const onMasterPasswordValidationFailed = () => {
+        setErrorMessage('master password is incorrect for this device');
     }
 
     return <>
