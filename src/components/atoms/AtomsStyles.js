@@ -30,13 +30,13 @@ export default StyleSheet.create({
     },
     alertBase: {
         opacity: 0.8,
-        position: 'fixed',
+        position: 'absolute',
         bottom: 80,
         left: 16,
         right: 16,
-        width: 'inherit',
+        
         borderRadius: 8,
-        padding: 16,
+        padding: 12,
         display: 'flex',
         flexDirection: 'row'
     },
