@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 
-const APP_PRIMARY_COLOR = '#0374e8'; // previously #6205ee
+const APP_PRIMARY_COLOR = 'rgba(0,0,0,0.8)' //'#0374e8'; // previously #6205ee
 const HEADER_BUTTON_SIZE = 24;
 
 const formatAvatarText = (name) => {
