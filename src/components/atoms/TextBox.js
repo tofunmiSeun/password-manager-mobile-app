@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Text } from 'react-native';
 import { TextInput } from 'react-native';
 import AtomsStyles from './AtomsStyles';
 
@@ -15,10 +14,9 @@ export default function TextBox({ initialTextValue = '', onTextChangedCallBack =
     }
 
     return <>
-        <TextInput style={AtomsStyles.textInput}
+        <TextInput style={isTextInputValid ? [AtomsStyles.textInput] : [AtomsStyles.textInput, { borderColor: 'red' }]}
             placeholder={placeholder}
             value={textValue}
             onChangeText={onTextChanged} />
-        {!isTextInputValid && <Text style={AtomsStyles.errorLabel}>{invalidTextInputErrorMessage}</Text>}
     </>;
 }

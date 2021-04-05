@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TextInput, Text } from 'react-native';
+import { TextInput } from 'react-native';
 import AtomsStyles from './AtomsStyles';
 
 
@@ -13,9 +13,8 @@ export default function PasswordBox({ initialValue = '', onPasswordChangedCallBa
     }
 
     return <>
-        <TextInput style={AtomsStyles.textInput}
+        <TextInput style={(password.length >= 1) ? [AtomsStyles.textInput] : [AtomsStyles.textInput, { borderColor: 'red' }]}
             placeholder={placeholder} value={password} secureTextEntry={true}
             onChangeText={onPasswordChanged} />
-        {(password.length < 1) && <Text style={AtomsStyles.errorLabel}>{'password required'}</Text>}
     </>;
 }

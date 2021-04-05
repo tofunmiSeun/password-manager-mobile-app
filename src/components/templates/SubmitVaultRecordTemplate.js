@@ -22,8 +22,7 @@ export default function SubmitVaultRecordTempate({ vaultRecord, onSubmitRecordCl
                 placeholder='Name'
                 isTextInputValid={name.length > 0} />
             <TextBox initialTextValue={url} onTextChangedCallBack={setUrl}
-                placeholder='Url'
-                isTextInputValid={url.length > 0} />
+                placeholder='Url' />
             <TextBox initialTextValue={username} onTextChangedCallBack={setUsername}
                 placeholder='Username'
                 isTextInputValid={username.length > 0} />
