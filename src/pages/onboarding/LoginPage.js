@@ -10,6 +10,7 @@ export default function LoginPage({ navigation }) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [loadingData, setLoadingData] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState('');
 
     const LoginForm = <View>
         <TextBox initialTextValue={email} onTextChangedCallBack={setEmail}
@@ -29,19 +30,22 @@ export default function LoginPage({ navigation }) {
     };
 
     const onLoginButtonClicked = () => {
+        setErrorMessage('');
         setLoadingData(true);
         UserService.login({ email, password }, () => {
             setLoadingData(false);
             navigation.replace('RecoverDevice');
-        }, (errorMessage) => {
+        }, (error) => {
             setLoadingData(false);
-            console.log(errorMessage);
+            setErrorMessage(error);
         });
     };
 
     return <OnboardingTempate title={'Login'}
         form={LoginForm}
         alternateActions={[{ title: 'Sign up', action: goToSignUp }]}
+        errorMessage={errorMessage}
+        onErrorAlertClosed={() => setErrorMessage('')}
         submitButton={<AppButton text='Login'
             isLoading={loadingData}
             isDisabled={isLoginButtonDisabled()}

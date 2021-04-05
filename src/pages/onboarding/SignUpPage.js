@@ -12,6 +12,7 @@ export default function SignUpPage({ navigation }) {
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [loadingData, setLoadingData] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState('');
 
     const SignUpForm = <View>
         <TextBox initialTextValue={name} onTextChangedCallBack={setName}
@@ -34,19 +35,22 @@ export default function SignUpPage({ navigation }) {
     };
 
     const onSignUpButtonClicked = () => {
+        setErrorMessage('');
         setLoadingData(true);
         UserService.signUp({ name, email, password }, () => {
             setLoadingData(false);
             navigation.replace('SignUp');
-        }, (errorMessage) => {
+        }, (error) => {
             setLoadingData(false);
-            console.log(errorMessage);
+            setErrorMessage(error);
         });
     };
 
     return <OnboardingTempate title='Sign Up'
         form={SignUpForm}
         alternateActions={[{ title: 'Login', action: goToLogin }]}
+        errorMessage={errorMessage}
+        onErrorAlertClosed={() => setErrorMessage('')}
         submitButton={<AppButton text='Sign Up'
             isLoading={loadingData}
             isDisabled={isSignUpButtonDisabled()}

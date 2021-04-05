@@ -8,7 +8,7 @@ export default function OnboardingTempate({ title, form, submitButton, alternate
     return <ConfiguredKeyboardAvoidingView childView={<View style={styles.container}>
         <Text style={{ alignSelf: 'center', fontSize: 18 }}>CredVault</Text>
         <Text style={styles.pageTitle}>{title}</Text>
-        <View style={{ flex: 1 }}>
+        <View style={{}}>
             {form}
             {alternateActions && <View style={styles.alternateLinksGrid}>
                 {alternateActions.map(action => {
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     pageTitle: {
-        marginTop: 24,
+        marginTop: 60,
         marginBottom: 24,
         fontSize: 24,
         fontWeight: 'bold'
