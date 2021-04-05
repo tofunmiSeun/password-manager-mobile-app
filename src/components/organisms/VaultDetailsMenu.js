@@ -32,7 +32,6 @@ export default function VaultDetailsMenu({ navigation, isVisible, vault, onMenuC
                         <ListItem.Title>Edit</ListItem.Title>
                     </ListItem.Content>
                 </ListItem>
-                <Divider />
             </View>}>
         </ModalTemplate>
     </>;
