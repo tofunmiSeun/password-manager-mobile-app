@@ -2,8 +2,9 @@ import * as React from 'react';
 import { Text, TouchableOpacity, View, StyleSheet } from 'react-native';
 import { APP_PRIMARY_COLOR } from '../../Utils';
 import ConfiguredKeyboardAvoidingView from './ConfiguredKeyboardAvoidingView';
+import Alert from '../../components/molecules/Alert';
 
-export default function OnboardingTempate({ title, form, submitButton, alternateActions }) {
+export default function OnboardingTempate({ title, form, submitButton, alternateActions, errorMessage, onErrorAlertClosed }) {
     return <ConfiguredKeyboardAvoidingView childView={<View style={styles.container}>
         <Text style={{ alignSelf: 'center', fontSize: 18 }}>CredVault</Text>
         <Text style={styles.pageTitle}>{title}</Text>
@@ -19,6 +20,7 @@ export default function OnboardingTempate({ title, form, submitButton, alternate
             </View>}
         </View>
         <View style={styles.actionButton}>{submitButton}</View>
+        {Boolean(errorMessage) && <Alert message={errorMessage} type='error' onClosed={onErrorAlertClosed} />}
     </View>} />;
 }
 

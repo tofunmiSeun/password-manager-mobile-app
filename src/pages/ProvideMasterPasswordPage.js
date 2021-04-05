@@ -5,7 +5,6 @@ import UserService from '../services/UserService';
 import PasswordBox from '../components/atoms/PasswordBox';
 import AppButton from '../components/atoms/AppButton';
 import OnboardingTempate from '../components/templates/OnboardingTemplate';
-import Alert from '../components/molecules/Alert';
 
 export default function ProvideMasterPasswordPage({ navigation }) {
     const [isValidatingPassword, setValidatingPassword] = React.useState(false);
@@ -45,14 +44,14 @@ export default function ProvideMasterPasswordPage({ navigation }) {
         setErrorMessage('master password is incorrect for this device');
     }
 
-    return <>
-        <OnboardingTempate title={'Access Vaults'}
-            form={<PasswordBox onPasswordChangedCallBack={setMasterPassword} placeholder='Master password' />}
-            alternateActions={[{ title: 'Logout', action: logout }]}
-            submitButton={<AppButton text='Proceed'
-                isLoading={isValidatingPassword}
-                isDisabled={isSubmitButtonDisabled()}
-                onClicked={onValidateMasterPasswordButtonClicked} />} />
-        {Boolean(errorMessage) && <Alert message={errorMessage} type='error' onClosed={() => setErrorMessage('')} />}
-    </>
+    return <OnboardingTempate title={'Access Vaults'}
+        form={<PasswordBox onPasswordChangedCallBack={setMasterPassword} placeholder='Master password' />}
+        alternateActions={[{ title: 'Logout', action: logout }]}
+        errorMessage={errorMessage}
+        onErrorAlertClosed={() => setErrorMessage('')}
+        submitButton={<AppButton text='Proceed'
+            isLoading={isValidatingPassword}
+            isDisabled={isSubmitButtonDisabled()}
+            onClicked={onValidateMasterPasswordButtonClicked} />} />
+
 }
