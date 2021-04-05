@@ -1,13 +1,10 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { ListItem, Divider } from 'react-native-elements';
-import { useNavigation } from '@react-navigation/native';
 import ModalTemplate from '../templates/ModalTemplate';
 
 
-export default function VaultDetailsMenu({ isVisible, vault, onMenuClosed = () => { } }) {
-    const navigation = useNavigation();
-
+export default function VaultDetailsMenu({ navigation, isVisible, vault, onMenuClosed = () => { } }) {
     const goToAddRecordPage = () => {
         navigation.navigate('NewVaultRecord', { vault });
         onMenuClosed();
