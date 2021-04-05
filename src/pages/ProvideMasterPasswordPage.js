@@ -5,9 +5,11 @@ import UserService from '../services/UserService';
 import PasswordBox from '../components/atoms/PasswordBox';
 import AppButton from '../components/atoms/AppButton';
 import OnboardingTempate from '../components/templates/OnboardingTemplate';
+import Alert from '../components/molecules/Alert';
 
 export default function ProvideMasterPasswordPage({ navigation }) {
     const [isValidatingPassword, setValidatingPassword] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState('');
     const [masterPassword, setMasterPassword] = React.useState('');
 
     const logout = () => {
@@ -29,7 +31,7 @@ export default function ProvideMasterPasswordPage({ navigation }) {
             if (isValid) {
                 navigation.replace('Home', { masterPassword });
             } else {
-                onMasterPasswordValidationFailed();
+                onMasterPasswordValidationFailed('master password is incorrect for this device');
             }
         } catch (error) {
             onMasterPasswordValidationFailed();
@@ -37,16 +39,18 @@ export default function ProvideMasterPasswordPage({ navigation }) {
         }
     };
 
-    const onMasterPasswordValidationFailed = () => {
-        console.log("Failed to validate master password");
+    const onMasterPasswordValidationFailed = (error = 'failed to validate master password') => {
+        setErrorMessage(error);
     }
 
-    return <OnboardingTempate title={'Access Vaults'}
-        form={<PasswordBox onPasswordChangedCallBack={setMasterPassword} placeholder='Master password' />}
-        alternateActions={[{ title: 'Logout', action: logout }]}
-        submitButton={<AppButton text='Proceed'
-            isLoading={isValidatingPassword}
-            isDisabled={isSubmitButtonDisabled()}
-            onClicked={onValidateMasterPasswordButtonClicked} />}
-    />;
+    return <>
+        <OnboardingTempate title={'Access Vaults'}
+            form={<PasswordBox onPasswordChangedCallBack={setMasterPassword} placeholder='Master password' />}
+            alternateActions={[{ title: 'Logout', action: logout }]}
+            submitButton={<AppButton text='Proceed'
+                isLoading={isValidatingPassword}
+                isDisabled={isSubmitButtonDisabled()}
+                onClicked={onValidateMasterPasswordButtonClicked} />} />
+        {Boolean(errorMessage) && <Alert message={errorMessage} type='error' onClosed={() => setErrorMessage('')} />}
+    </>
 }

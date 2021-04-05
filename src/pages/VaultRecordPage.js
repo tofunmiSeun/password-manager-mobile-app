@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import AppListView from '../components/organisms/AppListView';
 import VaultService from '../services/VaultService';
@@ -46,7 +46,7 @@ export default function VaultRecordPage({ route, navigation }) {
                 {Boolean(item.url) && <Text style={ListItemStyles.listItemSecondaryText}>{item.username}</Text>}
             </View>
             <View style={ListItemStyles.listItemIcon} >
-                <Ionicons name="ios-arrow-forward" size={12} color="grey" />
+                <Ionicons name="ios-arrow-forward" size={16} color="grey" />
             </View>
         </TouchableOpacity>
     };

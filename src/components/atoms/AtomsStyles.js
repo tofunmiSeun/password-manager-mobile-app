@@ -27,5 +27,22 @@ export default StyleSheet.create({
         color: 'red',
         marginTop: -10,
         marginBottom: 10
+    },
+    alertBase: {
+        opacity: 0.8,
+        position: 'fixed',
+        bottom: 80,
+        left: 16,
+        right: 16,
+        width: 'inherit',
+        borderRadius: 8,
+        padding: 16,
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    alertText: {
+        color: 'white',
+        fontSize: 15,
+        //fontWeight: 'bold'
     }
 });
