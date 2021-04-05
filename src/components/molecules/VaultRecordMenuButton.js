@@ -1,7 +1,7 @@
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import HeaderButton from '../atoms/HeaderButton';
-import { APP_PRIMARY_COLOR } from '../../Utils';
+import { APP_PRIMARY_COLOR, HEADER_BUTTON_SIZE } from '../../Utils';
 import VaultDetailsMenu from '../organisms/VaultDetailsMenu';
 
 export default function VaultRecordMenuButton({ navigation, vault }) {
@@ -9,8 +9,7 @@ export default function VaultRecordMenuButton({ navigation, vault }) {
 
     return <>
         <HeaderButton iconView={<Ionicons name="ellipsis-horizontal"
-            size={24}
-            color={APP_PRIMARY_COLOR} />}
+            size={HEADER_BUTTON_SIZE} color={APP_PRIMARY_COLOR} />}
             onButtonClicked={() => { setShowMenu(true) }} />
         <VaultDetailsMenu navigation={navigation} isVisible={showMenu}
             vault={vault}

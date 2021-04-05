@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 
 const APP_PRIMARY_COLOR = '#0374e8'; // previously #6205ee
+const HEADER_BUTTON_SIZE = 24;
+
 const formatAvatarText = (name) => {
     const splitBySpace = name.split(" ").slice(0, 2)
     let formattedData = ""
@@ -18,7 +20,7 @@ const ListItemStyles = StyleSheet.create({
         flexDirection: 'row'
     },
     listItemText: {
-        fontSize: 17
+        fontSize: 18
     },
     listItemSecondaryText: {
         marginTop: 2,
@@ -32,4 +34,4 @@ const ListItemStyles = StyleSheet.create({
     }
 });
 
-export { APP_PRIMARY_COLOR, formatAvatarText, ListItemStyles }
+export { APP_PRIMARY_COLOR, HEADER_BUTTON_SIZE, formatAvatarText, ListItemStyles }
