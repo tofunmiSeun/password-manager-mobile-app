@@ -31,10 +31,9 @@ export default StyleSheet.create({
     alertBase: {
         opacity: 0.8,
         position: 'absolute',
-        bottom: 80,
+        bottom: 40,
         left: 16,
         right: 16,
-        
         borderRadius: 8,
         padding: 12,
         display: 'flex',

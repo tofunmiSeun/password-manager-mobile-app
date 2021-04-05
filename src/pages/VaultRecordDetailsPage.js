@@ -4,13 +4,21 @@ import { EvilIcons, Feather, Ionicons } from '@expo/vector-icons';
 import Clipboard from 'expo-clipboard';
 import ListItemSeparator from '../components/atoms/ListItemSeparator';
 import DetailsPageStyles from './DetailsPageStyles';
+import Alert from '../components/molecules/Alert';
 
 export default function VaultRecordDetails({ route, navigation }) {
     const { vaultRecord } = route?.params;
     const [isPasswordRevealed, setPasswordRevealed] = React.useState(false);
+    const [showClipboardAlert, setShowClipboardAlert] = React.useState(false);
 
     const getMaskedPassword = () => {
         return "*".repeat(vaultRecord.password.length);
+    }
+
+    const copyToClipboard = (text) => {
+        Clipboard.setString(text);
+        setShowClipboardAlert(true);
+        setTimeout(() => { setShowClipboardAlert(false) }, 3500);
     }
 
     return (
@@ -30,7 +38,7 @@ export default function VaultRecordDetails({ route, navigation }) {
                     <Text style={DetailsPageStyles.formLabel}>username</Text>
                     <View style={DetailsPageStyles.formDataContainer}>
                         <Text style={DetailsPageStyles.formValue}>{vaultRecord.username}</Text>
-                        <TouchableOpacity onPress={() => Clipboard.setString(vaultRecord.username)}
+                        <TouchableOpacity onPress={() => copyToClipboard(vaultRecord.username)}
                             style={{ marginTop: 'auto', marginBottom: 'auto', marginLeft: 'auto' }}>
                             <Feather name="copy" size={16} color="black" />
                         </TouchableOpacity>
@@ -48,13 +56,15 @@ export default function VaultRecordDetails({ route, navigation }) {
                             <Ionicons name={isPasswordRevealed ? 'ios-eye-off' : 'ios-eye'}
                                 size={16} color="black" />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => Clipboard.setString(vaultRecord.password)}
+                        <TouchableOpacity onPress={() => copyToClipboard(vaultRecord.password)}
                             style={{ marginTop: 'auto', marginBottom: 'auto', marginLeft: 'auto' }}>
                             <Feather name="copy" size={16} color="black" />
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
+            {showClipboardAlert && <Alert message={'Text copied to clipboard!'}
+                onClosed={() => setShowClipboardAlert(false)} />}
         </View>
     )
 }
