@@ -21,7 +21,7 @@ export default function AddVaultRecordPage({ route, navigation }) {
             const decryptedVaultKey = await VaultService.decryptVaultKey(masterPassword, deviceDetails, vaultKeyResponse.encryptedVaultKey);
             const cipherRecord = VaultService.encryptVaultRecord(decryptedVaultKey, vaultRecord);
             VaultService.createVaultRecord(vault.id, cipherRecord, (vaultRecordId) => {
-                navigation.replace('VaultRecords', { vault });
+                navigation.replace('VaultDetails', { vault });
                 setSubmitting(false);
             }, onSubmissionFailed);
 

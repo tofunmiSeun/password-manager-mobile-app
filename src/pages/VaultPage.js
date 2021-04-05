@@ -37,7 +37,7 @@ export default function VaultPage({ navigation }) {
     );
 
     const viewRecordsInVault = (vault) => {
-        navigation.navigate('VaultRecords', { vault });
+        navigation.navigate('VaultDetails', { vault });
     }
 
     return (

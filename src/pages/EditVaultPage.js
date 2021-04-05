@@ -10,7 +10,7 @@ export default function EditVaultPage({ route, navigation }) {
         setSubmitting(true);
 
         VaultService.editVault(vault.id, { name: updatedVaultName }, () => {
-            navigation.replace('VaultRecords', { vault: Object.assign(vault, { name: updatedVaultName }) });
+            navigation.replace('VaultDetails', { vault: Object.assign(vault, { name: updatedVaultName }) });
             setSubmitting(false);
         }, (errorMessage) => {
             setSubmitting(false);

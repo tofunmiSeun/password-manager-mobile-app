@@ -7,7 +7,7 @@ import DeviceService from '../services/DeviceService';
 import MasterPasswordContext from '../context/MasterPasswordContext';
 import { ListItemStyles } from '../Utils';
 
-export default function VaultRecordPage({ route, navigation }) {
+export default function VaultDetailsPage({ route, navigation }) {
     const { vault } = route?.params;
     const masterPassword = React.useContext(MasterPasswordContext);
 
