@@ -5,6 +5,7 @@ import AppListView from '../components/organisms/AppListView';
 import VaultService from '../services/VaultService';
 import DeviceService from '../services/DeviceService';
 import MasterPasswordContext from '../context/MasterPasswordContext';
+import { ListItemStyles } from '../Utils';
 
 export default function VaultRecordPage({ route, navigation }) {
     const { vault } = route?.params;
@@ -39,12 +40,12 @@ export default function VaultRecordPage({ route, navigation }) {
     }
 
     const ListItem = ({ item }) => {
-        return <TouchableOpacity style={styles.listItemContainer} onPress={() => viewVaultRecordDetails(item)}>
+        return <TouchableOpacity style={ListItemStyles.listItemContainer} onPress={() => viewVaultRecordDetails(item)}>
             <View>
-                <Text style={styles.listItemText}>{item.name}</Text>
-                {Boolean(item.url) && <Text style={styles.listItemSecondaryText}>{item.username}</Text>}
+                <Text style={ListItemStyles.listItemText}>{item.name}</Text>
+                {Boolean(item.url) && <Text style={ListItemStyles.listItemSecondaryText}>{item.username}</Text>}
             </View>
-            <View style={styles.listItemIcon} >
+            <View style={ListItemStyles.listItemIcon} >
                 <Ionicons name="ios-arrow-forward" size={12} color="grey" />
             </View>
         </TouchableOpacity>
@@ -60,25 +61,3 @@ export default function VaultRecordPage({ route, navigation }) {
         searchText={searchKey}
         onSearchTextChanged={setSearchKey} />;
 }
-
-const styles = StyleSheet.create({
-    listItemContainer: {
-        padding: 16,
-        backgroundColor: '#fff',
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    listItemText: {
-        fontSize: 17
-    },
-    listItemSecondaryText: {
-        marginTop: 2,
-        fontSize: 10,
-        color: '#888'
-    },
-    listItemIcon: {
-        marginTop: 'auto',
-        marginBottom: 'auto',
-        marginLeft: 'auto'
-    }
-});

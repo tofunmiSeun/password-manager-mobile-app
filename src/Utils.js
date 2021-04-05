@@ -1,3 +1,5 @@
+import { StyleSheet } from 'react-native';
+
 const APP_PRIMARY_COLOR = '#0374e8'; // previously #6205ee
 const formatAvatarText = (name) => {
     const splitBySpace = name.split(" ").slice(0, 2)
@@ -8,4 +10,26 @@ const formatAvatarText = (name) => {
     return formattedData;
 }
 
-export { APP_PRIMARY_COLOR, formatAvatarText }
+const ListItemStyles = StyleSheet.create({
+    listItemContainer: {
+        padding: 16,
+        backgroundColor: '#fff',
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    listItemText: {
+        fontSize: 17
+    },
+    listItemSecondaryText: {
+        marginTop: 2,
+        fontSize: 10,
+        color: '#888'
+    },
+    listItemIcon: {
+        marginTop: 'auto',
+        marginBottom: 'auto',
+        marginLeft: 'auto'
+    }
+});
+
+export { APP_PRIMARY_COLOR, formatAvatarText, ListItemStyles }
