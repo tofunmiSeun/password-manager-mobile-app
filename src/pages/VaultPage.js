@@ -16,8 +16,8 @@ export default function VaultPage({ navigation }) {
     }, []);
 
     const getVaults = async () => {
-        const deviceId = await DeviceService.getDeviceId();
         setLoadingData(true);
+        const deviceId = await DeviceService.getDeviceId();
         VaultService.getVaults(deviceId, (response) => {
             setVaults(response);
             setLoadingData(false);
@@ -29,11 +29,10 @@ export default function VaultPage({ navigation }) {
     const ListItem = ({ item }) => (
         <TouchableOpacity style={ListItemStyles.listItemContainer}
             onPress={() => viewRecordsInVault(item)}>
-            <Text style={{ fontSize: 17 }}>{item.name}</Text>
+            <Text style={ListItemStyles.listItemText}>{item.name}</Text>
             <View style={ListItemStyles.listItemIcon} >
                 <Ionicons name="ios-arrow-forward" size={12} color="grey" />
             </View>
-
         </TouchableOpacity>
     );
 
