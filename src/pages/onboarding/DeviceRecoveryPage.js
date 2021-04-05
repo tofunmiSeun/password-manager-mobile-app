@@ -14,6 +14,7 @@ export default function DeviceRecoveryPage({ navigation }) {
     const [secretKey, setSecretKey] = React.useState('');
     const [masterPassword, setMasterPassword] = React.useState('');
     const [loadingData, setLoadingData] = React.useState(false);
+    const [errorMessage, setErrorMessage] = React.useState('');
 
     React.useEffect(() => {
         DeviceService.getAllDevices((response) => {
@@ -22,7 +23,7 @@ export default function DeviceRecoveryPage({ navigation }) {
                 navigation.replace('RegisterDevice');
             }
         }, (errorMessage) => {
-            console.log(errorMessage);
+            setErrorMessage('failed to load devices: ' + errorMessage);
         })
     }, []);
 
@@ -55,11 +56,12 @@ export default function DeviceRecoveryPage({ navigation }) {
     const isSubmitButtonDisabled = () => {
         return !Boolean(selectedDevice) ||
             !Boolean(secretKey.trim()) ||
-            masterPassword.trim().length < 8;
+            masterPassword.trim().length < 1;
     };
 
     const onRecoverDeviceButtonClicked = async () => {
         try {
+            setErrorMessage('');
             setLoadingData(true);
             var isValid = false;
             isValid = await DeviceCredentialsService.validateDeviceCredentials(selectedDevice, masterPassword, secretKey);
@@ -78,19 +80,20 @@ export default function DeviceRecoveryPage({ navigation }) {
                 onDeviceRecoveryFailed();
             }
         } catch (error) {
-            console.log(error);
             onDeviceRecoveryFailed();
         }
     };
 
     const onDeviceRecoveryFailed = () => {
         setLoadingData(false);
-        console.log("Failed to recover device");
+        setErrorMessage('Incorrect master password / secret key combination');
     }
 
     return <OnboardingTempate title={'Recover Device'}
         form={DeviceForm}
         alternateActions={[{ title: 'New device', action: registerNewDevice }, { title: 'Logout', action: logout }]}
+        errorMessage={errorMessage}
+        onErrorAlertClosed={() => setErrorMessage('')}
         submitButton={<AppButton text='Register'
             isDisabled={isSubmitButtonDisabled()}
             isLoading={loadingData}
