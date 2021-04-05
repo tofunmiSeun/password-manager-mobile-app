@@ -1,8 +1,7 @@
 import * as React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { Entypo, EvilIcons, Feather, Ionicons } from '@expo/vector-icons';
+import { EvilIcons, Feather, Ionicons } from '@expo/vector-icons';
 import ListItemSeparator from '../components/atoms/ListItemSeparator';
-import VaultService from '../services/VaultService';
 import DetailsPageStyles from './DetailsPageStyles';
 
 export default function VaultRecordDetails({ route, navigation }) {
@@ -11,12 +10,6 @@ export default function VaultRecordDetails({ route, navigation }) {
 
     const getMaskedPassword = () => {
         return "*".repeat(vaultRecord.password.length);
-    }
-
-    const deleteRecord = () => {
-        VaultService.deleteVaultRecord(vaultRecord.id, () => {
-            navigation.goBack();
-        }, (errorMessage) => console.log(errorMessage));
     }
 
     return (
@@ -59,13 +52,6 @@ export default function VaultRecordDetails({ route, navigation }) {
                             <Feather name="copy" size={16} color="black" />
                         </TouchableOpacity>
                     </View>
-                </View>
-            </View>
-            <View style={DetailsPageStyles.section}>
-                <View style={{ display: 'none', flexDirection: 'row', justifyContent: 'space-around' }}>
-                    <TouchableOpacity style={DetailsPageStyles.formDataContainer} onPress={deleteRecord}>
-                        <Ionicons name="trash" size={24} color="red" />
-                    </TouchableOpacity>
                 </View>
             </View>
         </View>

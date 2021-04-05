@@ -10,9 +10,9 @@ import EditVaultPage from './EditVaultPage';
 import VaultRecordMenuButton from '../components/molecules/VaultRecordMenuButton';
 import AddVaultRecordPage from './AddVaultRecordPage';
 import VaultRecordDetailsPage from './VaultRecordDetailsPage';
-import EditVaultRecordButton from '../components/molecules/EditVaultRecordButton';
 import EditVaultRecordPage from './EditVaultRecordPage';
 import BackButton from '../components/molecules/BackButton';
+import VaultRecordDetailsMenuButton from '../components/molecules/VaultRecordDetailsMenuButton';
 
 const HomeStack = createStackNavigator();
 
@@ -31,7 +31,7 @@ export default function HomePage({ route }) {
             <HomeStack.Screen name={'VaultRecords'} component={VaultRecordPage}
                 options={({ route, navigation }) => ({
                     title: route.params.vault.name,
-                    headerRight: () => <VaultRecordMenuButton vault={route.params.vault} />
+                    headerRight: () => <VaultRecordMenuButton navigation={navigation} vault={route.params.vault} />
                 })} />
             <HomeStack.Screen name={'EditVault'} component={EditVaultPage}
                 options={({ route }) => ({ title: route.params.vault.name })} />
@@ -40,7 +40,8 @@ export default function HomePage({ route }) {
             <HomeStack.Screen name={'VaultRecordDetails'} component={VaultRecordDetailsPage}
                 options={({ route, navigation }) => ({
                     title: route.params.vaultRecord.name,
-                    headerRight: () => <EditVaultRecordButton vaultParams={route.params} navigation={navigation} />
+                    headerRight: () => <VaultRecordDetailsMenuButton vaultRecord={route.params.vaultRecord}
+                        navigation={navigation} />
                 })} />
             <HomeStack.Screen name={'EditVaultRecord'} component={EditVaultRecordPage}
                 options={({ route }) => ({ title: route.params.vaultRecord.name })} />
