@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import UserService from '../services/UserService';
-import TextBox from '../components/atoms/TextBox';
-import PasswordBox from '../components/atoms/PasswordBox';
-import AppButton from '../components/atoms/AppButton';
-import OnboardingTempate from '../components/templates/OnboardingTemplate';
+import UserService from '../../services/UserService';
+import TextBox from '../../components/atoms/TextBox';
+import PasswordBox from '../../components/atoms/PasswordBox';
+import AppButton from '../../components/atoms/AppButton';
+import OnboardingTempate from '../../components/templates/OnboardingTemplate';
 
 export default function SignUpPage({ navigation }) {
 

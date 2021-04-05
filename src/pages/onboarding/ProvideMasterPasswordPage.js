@@ -1,10 +1,10 @@
 import * as React from 'react';
-import DeviceService from '../services/DeviceService';
-import DeviceCredentialsService from '../services/DeviceCredentialsService';
-import UserService from '../services/UserService';
-import PasswordBox from '../components/atoms/PasswordBox';
-import AppButton from '../components/atoms/AppButton';
-import OnboardingTempate from '../components/templates/OnboardingTemplate';
+import DeviceService from '../../services/DeviceService';
+import DeviceCredentialsService from '../../services/DeviceCredentialsService';
+import UserService from '../../services/UserService';
+import PasswordBox from '../../components/atoms/PasswordBox';
+import AppButton from '../../components/atoms/AppButton';
+import OnboardingTempate from '../../components/templates/OnboardingTemplate';
 
 export default function ProvideMasterPasswordPage({ navigation }) {
     const [isValidatingPassword, setValidatingPassword] = React.useState(false);

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { View } from 'react-native';
-import DeviceService from '../services/DeviceService';
-import DeviceCredentialsService from '../services/DeviceCredentialsService';
-import UserService from '../services/UserService';
-import SelectBox from '../components/atoms/SelectBox';
-import PasswordBox from '../components/atoms/PasswordBox';
-import AppButton from '../components/atoms/AppButton';
-import OnboardingTempate from '../components/templates/OnboardingTemplate';
+import DeviceService from '../../services/DeviceService';
+import DeviceCredentialsService from '../../services/DeviceCredentialsService';
+import UserService from '../../services/UserService';
+import SelectBox from '../../components/atoms/SelectBox';
+import PasswordBox from '../../components/atoms/PasswordBox';
+import AppButton from '../../components/atoms/AppButton';
+import OnboardingTempate from '../../components/templates/OnboardingTemplate';
 
 export default function DeviceRecoveryPage({ navigation }) {
     const [devices, setDevices] = React.useState([]);

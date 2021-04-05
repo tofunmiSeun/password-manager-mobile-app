@@ -7,11 +7,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import UserService from './services/UserService';
 import DeviceService from './services/DeviceService';
 
-import LoginPage from './pages/LoginPage';
-import SignUpPage from './pages/SignUpPage';
-import DeviceRecoveryPage from './pages/DeviceRecoveryPage';
-import DeviceRegistrationPage from './pages/DeviceRegistrationPage';
-import ProvideMasterPasswordPage from './pages/ProvideMasterPasswordPage';
+import LoginPage from './pages/onboarding/LoginPage';
+import SignUpPage from './pages/onboarding/SignUpPage';
+import DeviceRecoveryPage from './pages/onboarding/DeviceRecoveryPage';
+import DeviceRegistrationPage from './pages/onboarding/DeviceRegistrationPage';
+import ProvideMasterPasswordPage from './pages/onboarding/ProvideMasterPasswordPage';
 import HomePage from './pages/HomePage';
 
 const Stack = createStackNavigator();
