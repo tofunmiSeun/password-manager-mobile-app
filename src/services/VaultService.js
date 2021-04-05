@@ -113,7 +113,7 @@ export default class VaultService {
 
     static deleteVaultRecord(vaultRecordId, successCallback, errorCallback) {
         UserService.setAuthToken().then(() => {
-            post(`/vault-record/delete/${vaultRecordId}`, successCallback, errorCallback);
+            httpDelete(`/vault-record/${vaultRecordId}`, successCallback, errorCallback);
         });
     }
 }

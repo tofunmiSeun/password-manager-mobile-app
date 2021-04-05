@@ -6,6 +6,7 @@ export function setAuthorizationToken(token) {
     const authHeaderValue = `Basic ${token}`;
     axios.defaults.headers.post['Authorization'] = authHeaderValue;
     axios.defaults.headers.get['Authorization'] = authHeaderValue;
+    axios.defaults.headers.delete['Authorization'] = authHeaderValue;
 }
 
 export function post(url, requestBody, successCallback, errorCallback) {
