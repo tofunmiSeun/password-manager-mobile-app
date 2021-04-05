@@ -2,9 +2,9 @@ import * as React from 'react';
 import { View, Text, TouchableOpacity, Linking } from 'react-native';
 import { EvilIcons, Feather, Ionicons } from '@expo/vector-icons';
 import Clipboard from 'expo-clipboard';
-import ListItemSeparator from '../components/atoms/ListItemSeparator';
-import DetailsPageStyles from './DetailsPageStyles';
-import Alert from '../components/molecules/Alert';
+import ListItemSeparator from '../../components/atoms/ListItemSeparator';
+import DetailsPageStyles from '../DetailsPageStyles';
+import Alert from '../../components/molecules/Alert';
 
 export default function VaultRecordDetails({ route, navigation }) {
     const { vaultRecord } = route?.params;

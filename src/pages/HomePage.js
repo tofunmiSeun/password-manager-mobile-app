@@ -2,15 +2,15 @@ import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import MasterPasswordContext from '../context/MasterPasswordContext';
-import VaultPage from './VaultPage';
+import VaultPage from './vault/VaultPage';
 import AddVaultButton from '../components/molecules/AddVaultButton';
-import AddVaultPage from './AddVaultPage';
-import VaultDetailsPage from './VaultDetailsPage';
-import EditVaultPage from './EditVaultPage';
+import AddVaultPage from './vault/AddVaultPage';
+import VaultDetailsPage from './vault/VaultDetailsPage';
+import EditVaultPage from './vault/EditVaultPage';
 import VaultRecordMenuButton from '../components/molecules/VaultRecordMenuButton';
-import AddVaultRecordPage from './AddVaultRecordPage';
-import VaultRecordDetailsPage from './VaultRecordDetailsPage';
-import EditVaultRecordPage from './EditVaultRecordPage';
+import AddVaultRecordPage from './vault-record/AddVaultRecordPage';
+import VaultRecordDetailsPage from './vault-record/VaultRecordDetailsPage';
+import EditVaultRecordPage from './vault-record/EditVaultRecordPage';
 import BackButton from '../components/molecules/BackButton';
 import VaultRecordDetailsMenuButton from '../components/molecules/VaultRecordDetailsMenuButton';
 

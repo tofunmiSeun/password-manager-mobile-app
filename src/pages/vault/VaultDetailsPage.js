@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import AppListView from '../components/organisms/AppListView';
-import VaultService from '../services/VaultService';
-import DeviceService from '../services/DeviceService';
-import MasterPasswordContext from '../context/MasterPasswordContext';
-import { ListItemStyles } from '../Utils';
+import AppListView from '../../components/organisms/AppListView';
+import VaultService from '../../services/VaultService';
+import DeviceService from '../../services/DeviceService';
+import MasterPasswordContext from '../../context/MasterPasswordContext';
+import { ListItemStyles } from '../../Utils';
 
 export default function VaultDetailsPage({ route, navigation }) {
     const { vault } = route?.params;

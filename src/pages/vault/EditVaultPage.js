@@ -1,6 +1,6 @@
 import * as React from 'react';
-import SubmitVaultTemplate from '../components/templates/SubmitVaultTemplate';
-import VaultService from '../services/VaultService';
+import SubmitVaultTemplate from '../../components/templates/SubmitVaultTemplate';
+import VaultService from '../../services/VaultService';
 
 export default function EditVaultPage({ route, navigation }) {
     const { vault } = route.params;

@@ -1,8 +1,8 @@
 import * as React from 'react';
-import SubmitVaultRecordTemplate from '../components/templates/SubmitVaultRecordTemplate';
-import VaultService from '../services/VaultService';
-import DeviceService from '../services/DeviceService';
-import MasterPasswordContext from '../context/MasterPasswordContext';
+import SubmitVaultRecordTemplate from '../../components/templates/SubmitVaultRecordTemplate';
+import VaultService from '../../services/VaultService';
+import DeviceService from '../../services/DeviceService';
+import MasterPasswordContext from '../../context/MasterPasswordContext';
 
 export default function AddVaultRecordPage({ route, navigation }) {
     const { vault } = route?.params;

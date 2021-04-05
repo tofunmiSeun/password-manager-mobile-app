@@ -1,8 +1,8 @@
 import * as React from 'react';
-import SubmitVaultTemplate from '../components/templates/SubmitVaultTemplate';
-import VaultService from '../services/VaultService';
-import DeviceService from '../services/DeviceService';
-import MasterPasswordContext from '../context/MasterPasswordContext';
+import SubmitVaultTemplate from '../../components/templates/SubmitVaultTemplate';
+import VaultService from '../../services/VaultService';
+import DeviceService from '../../services/DeviceService';
+import MasterPasswordContext from '../../context/MasterPasswordContext';
 
 export default function AddVaultPage({ navigation }) {
     const masterPassword = React.useContext(MasterPasswordContext);
