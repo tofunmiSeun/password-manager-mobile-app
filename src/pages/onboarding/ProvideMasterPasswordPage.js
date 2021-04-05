@@ -16,6 +16,10 @@ export default function ProvideMasterPasswordPage({ navigation }) {
         navigation.replace('Login');
     };
 
+    const changeDevice = () => {
+        navigation.navigate('RecoverDevice');
+    };
+
     const isSubmitButtonDisabled = () => {
         return masterPassword.trim().length < 1;
     };
@@ -46,7 +50,7 @@ export default function ProvideMasterPasswordPage({ navigation }) {
 
     return <OnboardingTempate title={'Access Vaults'}
         form={<PasswordBox onPasswordChangedCallBack={setMasterPassword} placeholder='Master password' />}
-        alternateActions={[{ title: 'Logout', action: logout }]}
+        alternateActions={[{ title: 'Logout', action: logout }, { title: 'Change Device', action: changeDevice }]}
         errorMessage={errorMessage}
         onErrorAlertClosed={() => setErrorMessage('')}
         submitButton={<AppButton text='Proceed'
