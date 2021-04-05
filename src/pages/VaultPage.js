@@ -31,7 +31,7 @@ export default function VaultPage({ navigation }) {
             onPress={() => viewRecordsInVault(item)}>
             <Text style={ListItemStyles.listItemText}>{item.name}</Text>
             <View style={ListItemStyles.listItemIcon} >
-                <Ionicons name="ios-arrow-forward" size={12} color="grey" />
+                <Ionicons name="ios-arrow-forward" size={16} color="grey" />
             </View>
         </TouchableOpacity>
     );

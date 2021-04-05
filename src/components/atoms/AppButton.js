@@ -11,7 +11,6 @@ export default function AppButton({ text = '', onClicked = () => { return; }, is
             onPress={onClicked}
             disabled={isDisabled || isLoading}
             loading={isLoading}
-            raised={true}
             title={text} />
     );
 }
