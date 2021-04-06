@@ -67,7 +67,7 @@ export default function DeviceRegistrationPage({ navigation }) {
         navigation.replace('Home', { masterPassword });
     }
 
-    return <>
+    return <View style={{ flex: 1 }}>
         <OnboardingTempate title={'Register Device'}
             form={DeviceForm}
             alternateActions={[{ title: 'Recover device', action: recoverDevice }, { title: 'Logout', action: logout }]}
@@ -77,10 +77,10 @@ export default function DeviceRegistrationPage({ navigation }) {
                 isLoading={loadingData}
                 isDisabled={isSubmitButtonDisabled()}
                 onClicked={onRegisterDeviceButtonClicked} />}
-        />;
+        />
         <SecretKeyGeneratedModal isVisible={showSecretKeyModal}
             secretKey={secretKey}
             onModalClosed={() => setShowSecretKeyModal(false)}
             onProceed={proceedToHomePage} />
-    </>
+    </View>
 }
